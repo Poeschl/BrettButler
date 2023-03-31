@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class BrettliApplication
+class BrettButtlerApplication
 
 fun main(args: Array<String>) {
-    runApplication<BrettliApplication>(*args)
+    runApplication<BrettButtlerApplication>(*args)
 }
