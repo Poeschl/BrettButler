@@ -1,0 +1,16 @@
+@import "../../node_modules/minireset.css/minireset";
+
+$primary: #ab2424;
+
+@import "darkly-variables";
+
+$bulmaswatch-import-font: false;
+$radius: 4px;
+
+$body-background-color: #2d2d2d;
+
+$column-gap: 1rem;
+
+@import "../../node_modules/bulma/bulma";
+@import "darkly-overrides";
+
