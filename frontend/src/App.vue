@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import NavBar from './components/NavBar.vue'
-</script>
-
 <template>
   <div>
     <NavBar class="mb-5"/>
@@ -12,6 +8,6 @@ import NavBar from './components/NavBar.vue'
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<script setup lang="ts">
+import NavBar from './components/NavBar.vue'
+</script>

@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-primary" role="navigation">
+  <nav class="navbar is-primary is-radiusless" role="navigation">
     <div class="container">
       <div class="navbar-brand">
         <a href="/" class="navbar-item">
@@ -15,11 +15,3 @@
     </div>
   </nav>
 </template>
-
-<script setup lang="ts">
-
-</script>
-
-<style scoped lang="scss">
-
-</style>
