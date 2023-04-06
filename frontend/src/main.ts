@@ -9,7 +9,7 @@ import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
 const app: App = createApp(App)
 
 library.add(faPenToSquare)
-app.component('font-awesome-icon', FontAwesomeIcon)
+app.use(FontAwesomeIcon)
 
 app.use(router)
 

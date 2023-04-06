@@ -1,5 +1,5 @@
 export default interface Game {
-  id: number,
+  readonly id: number,
   name: string,
   numberOfPlayers: string,
   playtimeInMinutes: number,

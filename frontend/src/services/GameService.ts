@@ -16,7 +16,7 @@ export default class GameService {
         name: "Example Game 2",
         numberOfPlayers: "1-4",
         playtimeInMinutes: 60,
-        description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone.A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
+        description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Some more glibberisch. And even even even even More to be sure enought for and overflow. Fun for everyone.A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
         url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
       },
       {

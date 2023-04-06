@@ -1,5 +1,5 @@
 {
-  "name": "BrettButtler",
+  "name": "brett-buttler",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,11 +20,11 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.57.0",
+    "@typescript-eslint/parser": "^5.57.1",
     "@vitejs/plugin-vue": "^4.1.0",
     "eslint": "^8.37.0",
-    "eslint-config-standard-with-typescript": "^34.0.1",
+    "eslint-import-resolver-typescript": "^3.5.5",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-n": "^15.7.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.10.0",
     "sass": "^1.60.0",
