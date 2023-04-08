@@ -1,22 +1,47 @@
 <template>
   <div class="columns is-multiline">
     <div
-        v-for="game in gameList"
-        :key="game.id"
-        class="column is-one-third is-full-mobile is-flex"
+      v-for="game in gameList"
+      :key="game.id"
+      class="column is-one-third is-full-mobile is-flex"
     >
-      <GameCard :game="game"/>
+      <GameCard
+        :game="game"
+        @gamecard-clicked="openModal"
+      />
     </div>
+  </div>
+  <div class="details">
+    <GameDetailsModal
+      v-if="showDetails"
+      :game="modalGame"
+      @close="closeModal"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import GameService from '../services/GameService'
 import GameCard from '../components/GameCard.vue'
+import GameDetailsModal from "../components/GameDetailsModal.vue";
+import Game from "../models/Game";
+import {ref} from "vue";
 
 const gameService = new GameService()
 
 const gameList = gameService.getAllGames()
+
+const modalGame = ref<Game>(gameList[0])
+const showDetails = ref(false)
+
+const openModal = (game: Game) => {
+  modalGame.value = game
+  showDetails.value = true
+}
+
+const closeModal = () => {
+  showDetails.value = false
+}
 
 </script>
 
