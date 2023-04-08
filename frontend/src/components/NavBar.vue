@@ -6,9 +6,13 @@
     <div class="container">
       <div class="navbar-brand">
         <a
-            href="/"
-            class="navbar-item"
+          href="/"
+          class="navbar-item"
         >
+          <FontAwesomeIcon
+            class="is-size-4 mr-3"
+            icon="fa-solid fa-dice"
+          />
           <span class="is-uppercase">BrettButtler</span>
         </a>
       </div>
@@ -31,3 +35,6 @@
     </div>
   </nav>
 </template>
+<script setup lang="ts">
+import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+</script>
