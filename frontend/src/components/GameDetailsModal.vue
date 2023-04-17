@@ -1,7 +1,6 @@
 <template>
   <div
-    class="game-modal is-active modal"
-    :data-id="props.game.id"
+    class="modal is-active"
   >
     <div
       class="modal-background"
@@ -12,7 +11,7 @@
         <div class="card-image">
           <figure class="image is-4by3">
             <img
-              src="https://bulma.io/images/placeholders/128x128.png"
+              src="/img/placeholder.png"
               alt="Placeholder image"
             >
           </figure>
@@ -53,7 +52,9 @@ import Game from "../models/Game";
 const props = defineProps<{
   game: Game
 }>()
-defineEmits(['close'])
+defineEmits<{
+  (e: 'close'): void
+}>()
 
 
 </script>

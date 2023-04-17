@@ -4,18 +4,18 @@
   >
     <div
       class="card-content"
-      @click="$emit('gamecard-clicked', props.game)">
+      @click="$emit('clicked:details', props.game)"
+    >
       <div class="level">
         <div class="level-left">
           <div class="level-item">
             <div
               class="media"
-
             >
               <div class="media-left">
                 <figure class="image is-96x96">
                   <img
-                    src="https://bulma.io/images/placeholders/128x128.png"
+                    src="/img/placeholder.png"
                     alt="Placeholder image"
                   >
                 </figure>
@@ -39,6 +39,7 @@
             <FontAwesomeIcon
               class="is-small"
               icon="fa-regular fa-pen-to-square"
+              @click.stop="$emit('clicked:edit', game)"
             />
           </a>
         </div>
@@ -60,7 +61,10 @@ const props = defineProps<{
   game: Game
 }>()
 
-defineEmits(['gamecard-clicked'])
+defineEmits<{
+  (e: 'clicked:details', val: Game): void
+  (e: 'clicked:edit', val: Game): void
+}>()
 
 </script>
 
