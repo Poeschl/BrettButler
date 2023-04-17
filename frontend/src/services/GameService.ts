@@ -2,7 +2,7 @@ import Game from "../models/Game";
 
 export default class GameService {
 
-  getAllGames(): Game[] {
+  getAllGames = (): Game[] => {
     return [{
       id: 1,
       name: "Example Game",
@@ -36,4 +36,13 @@ export default class GameService {
         url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
       }]
   }
+
+  saveGame = (game: Game) => {
+    console.info("Save " + JSON.stringify(game))
+  }
+
+  deleteGame = (game: Game) => {
+    console.info("Deletion of " + JSON.stringify(game))
+  }
+
 }

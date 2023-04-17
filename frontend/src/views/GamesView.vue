@@ -26,26 +26,33 @@
     >
       <GameCard
         :game="game"
-        @gamecard-clicked="openDetailModal"
+        @clicked:details="openDetailModal"
+        @clicked:edit="openEditModal"
       />
     </div>
   </div>
-  <div class="details">
-    <GameDetailsModal
-      v-if="showDetails"
-      :game="modalGame"
-      @close="closeModal"
-    />
-  </div>
+  <GameDetailsModal
+    v-if="showDetails"
+    :game="modalGame"
+    @close="closeModal"
+  />
+  <GameEditModal
+    v-if="showEdit"
+    v-model:game="modalGame"
+    @close="closeModal"
+    @update:game="saveGame"
+    @delete:game="deleteGame"
+  />
 </template>
 
 <script setup lang="ts">
 import GameService from '../services/GameService'
 import GameCard from '../components/GameCard.vue'
 import GameDetailsModal from "../components/GameDetailsModal.vue";
-import Game from "../models/Game";
+import Game, {createEmptyGame} from "../models/Game";
 import {ref} from "vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import GameEditModal from "../components/GameEditModal.vue";
 
 const gameService = new GameService()
 
@@ -68,8 +75,20 @@ const closeModal = () => {
 const openEditModal = (game: Game | null) => {
   if (game !== null) {
     modalGame.value = game
+  } else {
+    modalGame.value = createEmptyGame()
   }
   showEdit.value = true
+}
+
+const saveGame = (game: Game) => {
+  gameService.saveGame(game)
+  closeModal()
+}
+
+const deleteGame = (game: Game) => {
+  gameService.deleteGame(game);
+  closeModal()
 }
 
 </script>
