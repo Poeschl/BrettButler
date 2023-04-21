@@ -20,4 +20,6 @@ $input-background-color: #494949;
 $input-color: $white-ter;
 
 @import "../../node_modules/bulma/bulma";
+@import "../../node_modules/bulma-calendar/src/sass/index";
+@import "darkly-calendar-overrides";
 @import "darkly-overrides";

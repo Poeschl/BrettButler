@@ -47,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import Game from "../models/Game";
+import Game from "../../models/Game";
 
 const props = defineProps<{
   game: Game
