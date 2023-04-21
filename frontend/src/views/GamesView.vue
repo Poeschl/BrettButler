@@ -13,7 +13,7 @@
               icon="fa-solid fa-plus"
             />
           </span>
-          <span>Add new game</span>
+          <span>Add new event</span>
         </button>
       </div>
     </div>
@@ -48,11 +48,11 @@
 <script setup lang="ts">
 import GameService from '../services/GameService'
 import GameCard from '../components/GameCard.vue'
-import GameDetailsModal from "../components/GameDetailsModal.vue";
+import GameDetailsModal from "../components/modals/GameDetailsModal.vue";
 import Game, {createEmptyGame} from "../models/Game";
 import {ref} from "vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import GameEditModal from "../components/GameEditModal.vue";
+import GameEditModal from "../components/modals/GameEditModal.vue";
 
 const gameService = new GameService()
 

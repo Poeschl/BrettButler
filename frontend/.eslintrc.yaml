@@ -16,4 +16,6 @@ env:
   browser: true
   es2021: true
 overrides: [ ]
-rules: { }
+rules: {
+  vue/html-closing-bracket-spacing: "off"
+}

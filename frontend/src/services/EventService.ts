@@ -55,4 +55,12 @@ export default class EventService {
         ]
       }]
   }
+
+  saveEvent = (event: Event) => {
+    console.info("Save " + JSON.stringify(event))
+  }
+
+  deleteEvent = (event: Event) => {
+    console.info("Deletion of " + JSON.stringify(event))
+  }
 }

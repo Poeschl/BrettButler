@@ -90,10 +90,10 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import Game from "../models/Game";
-import EditModalFooter from "./EditModalFooter.vue";
-import TextInput from "./forms/TextInput.vue";
-import TextBoxInput from "./forms/TextBoxInput.vue";
+import Game from "../../models/Game";
+import EditModalFooter from "../EditModalFooter.vue";
+import TextInput from "../forms/TextInput.vue";
+import TextBoxInput from "../forms/TextBoxInput.vue";
 
 const props = defineProps<{
   game: Game

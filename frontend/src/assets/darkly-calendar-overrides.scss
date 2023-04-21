@@ -1,0 +1,63 @@
+.datetimepicker {
+  background: $grey-darker;
+
+  .datepicker-body .datepicker-dates .datepicker-days .datepicker-date {
+    background: $grey;
+
+    &.is-current-month {
+      background: transparent;
+    }
+
+    .date-item {
+      border-radius: 0;
+
+      &:hover {
+        background: $grey-dark;
+        border: none;
+        color: $text;
+      }
+
+      &.is-today {
+        border-width: 2px;
+        border-style: dashed;
+        color: $text !important;
+
+        &:hover {
+          color: $primary !important;
+        }
+      }
+
+      &.is-active {
+        border-radius: 0;
+      }
+    }
+  }
+
+  .timepicker .timepicker-start .timepicker-input-number,
+  .timepicker .timepicker-end .timepicker-input-number {
+    font-weight: initial;
+  }
+
+}
+
+.datetimepicker-dummy {
+  .datetimepicker-clear-button {
+    display: none;
+  }
+
+  .datetimepicker-dummy-wrapper {
+
+    &::before {
+      display: none;
+    }
+
+    .datetimepicker-dummy-input:first-child {
+      text-indent: 0;
+      cursor: pointer;
+    }
+
+    &.input.is-success {
+      @extend .is-success
+    }
+  }
+}
