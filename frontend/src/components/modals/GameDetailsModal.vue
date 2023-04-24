@@ -1,12 +1,8 @@
 <template>
-  <div
-    class="modal is-active"
+  <BaseDetailModal
+    @close="$emit('close')"
   >
-    <div
-      class="modal-background"
-      @click="$emit('close')"
-    />
-    <div class="modal-content">
+    <template #content>
       <div class="card">
         <div class="card-image">
           <figure class="image is-4by3">
@@ -37,17 +33,13 @@
           </a>
         </div>
       </div>
-    </div>
-    <button
-      class="modal-close is-large"
-      aria-label="close"
-      @click="$emit('close')"
-    />
-  </div>
+    </template>
+  </BaseDetailModal>
 </template>
 
 <script setup lang="ts">
 import Game from "../../models/Game";
+import BaseDetailModal from "./BaseDetailModal.vue";
 
 const props = defineProps<{
   game: Game
