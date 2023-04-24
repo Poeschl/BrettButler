@@ -29,7 +29,7 @@
     >
       <EventCard
         :event="event"
-        @clicked:details="openDetailModal"
+        @clicked:details="openDetailModal(event, false)"
         @clicked:edit="openEditModal"
       />
     </div>
@@ -46,7 +46,7 @@
     >
       <EventCard
         :event="event"
-        @clicked:details="openDetailModal"
+        @clicked:details="openDetailModal(event,true)"
         @clicked:edit="openEditModal"
       />
     </div>
@@ -54,6 +54,7 @@
   <EventDetailsModal
     v-if="showDetails"
     :event="modalEvent"
+    :readOnly="modalEventReadOnly"
     @close="closeModal"
   />
   <EventEditModal
@@ -62,6 +63,11 @@
     @close="closeModal"
     @update:event="saveEvent"
     @delete:event="deleteEvent"
+  />
+  <UserPromptModal
+    v-if="showUserPrompt"
+    @close="closeModal"
+    @username:save="acceptUserPrompt"
   />
 </template>
 
@@ -73,8 +79,11 @@ import Event, {createEmptyEvent} from "../models/Event";
 import EventEditModal from "../components/modals/EventEditModal.vue";
 import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
 import {useEventStore} from "../stores/EventStore";
+import {useUserStore} from "../stores/UserStore";
+import UserPromptModal from "../components/modals/UserPromptModal.vue";
 
 const eventStore = useEventStore()
+const userStore = useUserStore()
 
 const today = getStartOfDay()
 const allEvents = ref<Event[]>(eventStore.events)
@@ -88,17 +97,32 @@ function getStartOfDay() {
 }
 
 const modalEvent = ref<Event>(activeEvents.value[0])
-const showDetails = ref(false)
-const showEdit = ref(false)
+const modalEventReadOnly = ref<boolean>(false)
+const showDetails = ref<boolean>(false)
+const showEdit = ref<boolean>(false)
+const showUserPrompt = ref<boolean>(false)
 
-const openDetailModal = (event: Event) => {
+const openDetailModal = (event: Event, readOnly: boolean) => {
   modalEvent.value = event
+  modalEventReadOnly.value = readOnly
+  if (!userStore.isUserDefined) {
+    showUserPrompt.value = true
+  } else {
+    showDetails.value = true
+  }
+}
+
+const acceptUserPrompt = (username: string) => {
+  userStore.setUser(username)
+  showUserPrompt.value = false
   showDetails.value = true
 }
 
 const closeModal = () => {
   showDetails.value = false
   showEdit.value = false
+  showUserPrompt.value = false
+  modalEventReadOnly.value = false
 }
 
 const openEditModal = (event: Event | null) => {
@@ -111,11 +135,11 @@ const openEditModal = (event: Event | null) => {
 }
 
 const saveEvent = (event: Event) => {
-  eventService.saveEvent(event);
+  eventStore.saveEvent(event);
 }
 
 const deleteEvent = (event: Event) => {
-  eventService.deleteEvent(event);
+  eventStore.deleteEvent(event);
 }
 </script>
 

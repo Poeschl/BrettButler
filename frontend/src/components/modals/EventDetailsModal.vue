@@ -29,7 +29,7 @@
                     <p class="">
                       Added by {{ game.owner }}
                     </p>
-                    <div>
+                    <div v-if="!props.readOnly">
                       <a title="Remove Game for this event">
                         <FontAwesomeIcon
                           class="is-small"
@@ -51,13 +51,15 @@
                           :key="user"
                         >
                           {{ user }}
-                          <a>
+                          <a v-if="!props.readOnly">
                             <FontAwesomeIcon
                               class="is-small"
                               icon="fa-solid fa-user-minus"
                             />
                           </a>
                         </li>
+                      </ul>
+                      <ul v-if="!props.readOnly">
                         <li
                           v-for="n in (gameService.getMaxPlayers(game.game) - game.players.length )"
                           :key="n"
@@ -92,8 +94,10 @@ import GameService from "../../services/GameService";
 const gameService = new GameService()
 
 const props = defineProps<{
-  event: Event
+  event: Event,
+  readOnly: boolean
 }>()
+
 defineEmits<{
   (e: 'close'): void
 }>()
@@ -106,6 +110,7 @@ defineEmits<{
   .level-item, ul {
     width: 100%;
     justify-content: start;
+    margin-bottom: .25em;
   }
 }
 
