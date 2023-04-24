@@ -22,7 +22,7 @@
     <div
       v-for="game in gameList"
       :key="game.id"
-      class="column is-one-third is-full-mobile is-flex"
+      class="column is-one-third-widescreen is-half-desktop is-half-tablet is-full-mobile"
     >
       <GameCard
         :game="game"

@@ -25,7 +25,7 @@
     <div
       v-for="event in activeEvents"
       :key="event.id"
-      class="column is-one-third is-full-mobile"
+      class="column is-one-third-widescreen is-half-desktop is-half-tablet is-full-mobile"
     >
       <EventCard
         :event="event"

@@ -68,20 +68,23 @@ defineEmits<{
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.card {
+
+  .card-content {
+    cursor: pointer;
+  }
+
+  .title {
+    margin-bottom: revert;
+  }
+}
+
 .is-description-height {
   height: 6rem;
 }
 
 .has-hidden-overflow {
   overflow: hidden;
-}
-
-.card-content {
-  cursor: pointer;
-}
-
-.title {
-  margin-bottom: revert;
 }
 </style>
