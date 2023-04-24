@@ -86,7 +86,7 @@ import Game from "../../models/Game";
 import EditModalFooter from "../EditModalFooter.vue";
 import TextInput from "../forms/TextInput.vue";
 import TextBoxInput from "../forms/TextBoxInput.vue";
-import GeneralModal from "./GeneralModal.vue";
+import GeneralModal from "./BaseModal.vue";
 
 const props = defineProps<{
   game: Game
