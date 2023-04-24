@@ -41,7 +41,7 @@ import {computed, ref} from "vue";
 import Event from "../../models/Event";
 import EditModalFooter from "../EditModalFooter.vue";
 import DateInput from "../forms/DateInput.vue";
-import GeneralModal from "./GeneralModal.vue";
+import GeneralModal from "./BaseModal.vue";
 
 const props = defineProps<{
   event: Event

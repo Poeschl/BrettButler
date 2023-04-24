@@ -1,7 +1,7 @@
 import {App as Application, createApp} from 'vue'
 import './assets/main.scss'
 import App from './App.vue'
-import router from "./router";
+import router from "./router/main";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
