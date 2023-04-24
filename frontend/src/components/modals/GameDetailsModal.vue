@@ -13,7 +13,7 @@
           </figure>
         </div>
         <div class="card-content">
-          <p class="title is-4">
+          <p class="title is-3">
             {{ props.game.name }}
           </p>
           <p class="subtitle mb-1 is-6">

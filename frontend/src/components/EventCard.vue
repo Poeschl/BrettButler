@@ -1,40 +1,37 @@
 <template>
-  <div class="card is-flex">
+  <div class="card">
     <div
       class="card-content"
       @click="$emit('clicked:details', event)"
     >
-      <div class="media">
-        <div class="media-content">
-          <p class="title is-4">
-            Spieleabend am {{ props.event.date.toLocaleString() }}
-          </p>
-          <div class="level">
-            <div class="level-left">
-              <a class="level-item">
-                <FontAwesomeIcon
-                  class="is-small"
-                  icon="fa-regular fa-pen-to-square"
-                  @click.stop="$emit('clicked:edit', event)"
-                />
-              </a>
-            </div>
+      <p class="title is-4">
+        {{ props.event.date.toLocaleString() }}
+      </p>
+      <div class="level">
+        <div class="level-left">
+          <div class="content has-gamelist-height">
+            <ul>
+              <li
+                v-for="game in props.event.playedGames.slice(0,2)"
+                :key="game.id"
+              >
+                {{ game.game.name }}
+              </li>
+              <li v-if="props.event.playedGames.length > 2">
+                ...
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
-
-      <div class="content has-gamelist-height">
-        <ul>
-          <li
-            v-for="game in props.event.games.slice(0,2)"
-            :key="game.id"
-          >
-            {{ game.name }}
-          </li>
-          <li v-if="props.event.games.length > 2">
-            ...
-          </li>
-        </ul>
+        <div class="level-right">
+          <a class="level-item">
+            <FontAwesomeIcon
+              class="is-small"
+              icon="fa-regular fa-pen-to-square"
+              @click.stop="$emit('clicked:edit', event)"
+            />
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -54,12 +51,16 @@ defineEmits<{
 }>()
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .has-gamelist-height {
   height: 5rem;
 }
 
 .card-content {
   cursor: pointer;
+}
+
+.level {
+  align-items: start;
 }
 </style>

@@ -29,6 +29,7 @@
     >
       <EventCard
         :event="event"
+        @clicked:details="openDetailModal"
         @clicked:edit="openEditModal"
       />
     </div>
@@ -50,6 +51,11 @@
       />
     </div>
   </div>
+  <EventDetailsModal
+    v-if="showDetails"
+    :event="modalEvent"
+    @close="closeModal"
+  />
   <EventEditModal
     v-if="showEdit"
     v-model:event="modalEvent"
@@ -66,6 +72,7 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {ref} from "vue";
 import Event, {createEmptyEvent} from "../models/Event";
 import EventEditModal from "../components/modals/EventEditModal.vue";
+import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
 
 const eventService = new EventService()
 

@@ -1,15 +1,15 @@
-import type Game from './Game'
+import PlayingGame from "./PlayingGame";
 
 export default interface Event {
   readonly id: number | undefined
   date: Date
-  games: Game[]
+  playedGames: PlayingGame[]
 }
 
 export const createEmptyEvent = (): Event => {
   return {
     id: undefined,
     date: new Date(),
-    games: []
+    playedGames: []
   }
 }
