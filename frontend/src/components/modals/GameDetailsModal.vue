@@ -4,14 +4,6 @@
   >
     <template #content>
       <div class="card">
-        <div class="card-image">
-          <figure class="image is-4by3">
-            <img
-              src="/img/placeholder.png"
-              alt="Placeholder image"
-            >
-          </figure>
-        </div>
         <div class="card-content">
           <p class="title is-3">
             {{ props.game.name }}
