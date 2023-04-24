@@ -12,14 +12,6 @@
             <div
               class="media"
             >
-              <div class="media-left">
-                <figure class="image is-96x96">
-                  <img
-                    src="/img/placeholder.png"
-                    alt="Placeholder image"
-                  >
-                </figure>
-              </div>
               <div class="media-content">
                 <p class="title is-4">
                   {{ props.game.name }}
