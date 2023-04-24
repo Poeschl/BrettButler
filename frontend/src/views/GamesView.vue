@@ -13,7 +13,7 @@
               icon="fa-solid fa-plus"
             />
           </span>
-          <span>Add new event</span>
+          <span>Add new game</span>
         </button>
       </div>
     </div>
