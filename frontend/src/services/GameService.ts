@@ -45,4 +45,12 @@ export default class GameService {
     console.info("Deletion of " + JSON.stringify(game))
   }
 
+  getMaxPlayers = (game: Game): number => {
+    if (game.numberOfPlayers.includes('-')) {
+      return parseInt(game.numberOfPlayers.split('-')[1])
+    } else {
+      return parseInt(game.numberOfPlayers)
+    }
+  }
+
 }
