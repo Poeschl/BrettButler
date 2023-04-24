@@ -66,20 +66,20 @@
 </template>
 
 <script setup lang="ts">
-import EventService from '../services/EventService'
 import EventCard from '../components/EventCard.vue'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import Event, {createEmptyEvent} from "../models/Event";
 import EventEditModal from "../components/modals/EventEditModal.vue";
 import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
+import {useEventStore} from "../stores/EventStore";
 
-const eventService = new EventService()
+const eventStore = useEventStore()
 
 const today = getStartOfDay()
-const allEvents: Event[] = eventService.getAllEvents()
-const pastEvents = ref<Event[]>(allEvents.filter(event => event.date < today));
-const activeEvents = ref<Event[]>(allEvents.filter(event => event.date >= today))
+const allEvents = ref<Event[]>(eventStore.events)
+const pastEvents = computed<Event[]>(() => allEvents.value.filter(event => event.date < today));
+const activeEvents = computed<Event[]>(() => allEvents.value.filter(event => event.date >= today))
 
 function getStartOfDay() {
   const now = new Date()

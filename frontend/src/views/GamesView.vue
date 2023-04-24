@@ -46,19 +46,18 @@
 </template>
 
 <script setup lang="ts">
-import GameService from '../services/GameService'
 import GameCard from '../components/GameCard.vue'
 import GameDetailsModal from "../components/modals/GameDetailsModal.vue";
 import Game, {createEmptyGame} from "../models/Game";
 import {ref} from "vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import GameEditModal from "../components/modals/GameEditModal.vue";
+import {useGameStore} from "../stores/GameStore";
 
-const gameService = new GameService()
+const gamesStore = useGameStore()
+const gameList = ref<Game[]>(gamesStore.games)
 
-const gameList = gameService.getAllGames()
-
-const modalGame = ref<Game>(gameList[0])
+const modalGame = ref<Game>(gameList.value[0])
 const showDetails = ref(false)
 const showEdit = ref(false)
 
@@ -82,12 +81,12 @@ const openEditModal = (game: Game | null) => {
 }
 
 const saveGame = (game: Game) => {
-  gameService.saveGame(game)
+  gamesStore.saveGame(game)
   closeModal()
 }
 
 const deleteGame = (game: Game) => {
-  gameService.deleteGame(game);
+  gamesStore.deleteGame(game);
   closeModal()
 }
 
