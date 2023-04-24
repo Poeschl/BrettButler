@@ -1,5 +1,5 @@
 <template>
-  <GeneralModal>
+  <BaseEditModal>
     <template #header>
       <h4
         v-if="isNew"
@@ -33,7 +33,7 @@
         @delete="$emit('delete:event', event)"
       />
     </template>
-  </GeneralModal>
+  </BaseEditModal>
 </template>
 
 <script setup lang="ts">
@@ -41,7 +41,7 @@ import {computed, ref} from "vue";
 import Event from "../../models/Event";
 import EditModalFooter from "../EditModalFooter.vue";
 import DateInput from "../forms/DateInput.vue";
-import GeneralModal from "./BaseEditModal.vue";
+import BaseEditModal from "./BaseEditModal.vue";
 
 const props = defineProps<{
   event: Event

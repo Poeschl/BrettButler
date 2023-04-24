@@ -46,6 +46,9 @@
           >
             Games
           </router-link>
+          <div class="navbar-item">
+            <UserDisplay/>
+          </div>
         </div>
       </div>
     </div>
@@ -55,6 +58,7 @@
 <script setup lang="ts">
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {ref} from "vue";
+import UserDisplay from "./UserDisplay.vue";
 
 const mobileNavOpen = ref<boolean>(false)
 const toggleMobileNav = () => {
