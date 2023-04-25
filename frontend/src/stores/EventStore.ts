@@ -2,6 +2,8 @@ import {defineStore, StoreDefinition} from "pinia";
 import Event from "../models/Event";
 import EventService from "../services/EventService";
 import {ref} from "vue";
+import PlayingGame from "../models/PlayingGame";
+import Game from "../models/Game";
 
 const eventService = new EventService()
 export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('eventsStore', () => {
@@ -21,5 +23,34 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
     updateList()
   }
 
-  return {events, updateList, saveGame, deleteGame}
+  function addUserToGame(event: Event, user: string, game: PlayingGame) {
+    eventService.addUserToGame(event, user, game)
+    updateList()
+  }
+
+  function removeUserFromGame(event: Event, user: string, game: PlayingGame) {
+    eventService.removeUserFromGame(event, user, game)
+    updateList()
+  }
+
+  function addGameToEvent(event: Event, game: Game, user: string) {
+    eventService.addGameToEvent(event, game, user)
+    updateList()
+  }
+
+  function removeGameFromEvent(event: Event, game: Game) {
+    eventService.removeGameFromEvent(event, game)
+    updateList()
+  }
+
+  return {
+    events,
+    updateList,
+    saveGame,
+    deleteGame,
+    addUserToGame,
+    removeUserFromGame,
+    addGameToEvent,
+    removeGameFromEvent
+  }
 })

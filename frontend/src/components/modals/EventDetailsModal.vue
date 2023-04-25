@@ -30,7 +30,10 @@
                       Added by {{ game.owner }}
                     </p>
                     <div v-if="!props.readOnly && game.owner === userStore.username">
-                      <a title="Remove Game for this event">
+                      <a
+                        title="Remove Game for this event"
+                        @click="eventStore.removeGameFromEvent(props.event, game.game)"
+                      >
                         <FontAwesomeIcon
                           class="is-small"
                           icon="fa-solid fa-square-minus"
@@ -49,10 +52,12 @@
                         <li
                           v-for="user in game.players"
                           :key="user"
-                          class="mr-2"
                         >
-                          {{ user }}
-                          <a v-if="!props.readOnly && user === userStore.username">
+                          <span class="mr-2">{{ user }}</span>
+                          <a
+                            v-if="!props.readOnly && user === userStore.username"
+                            @click="eventStore.removeUserFromGame(props.event, userStore.username, game)"
+                          >
                             <FontAwesomeIcon
                               class="is-small"
                               icon="fa-solid fa-user-minus"
@@ -68,6 +73,7 @@
                           <span class="mr-2 has-text-grey-light">Free seat</span>
                           <a
                             v-if="!userInGame(userStore.username, game)"
+                            @click="eventStore.addUserToGame(props.event, userStore.username, game)"
                           >
                             <FontAwesomeIcon
                               class="is-small"
@@ -96,9 +102,11 @@ import {useUserStore} from "../../stores/UserStore";
 import PlayingGame from "../../models/PlayingGame";
 import {inject} from "vue";
 import GameService from "../../services/GameService";
+import {useEventStore} from "../../stores/EventStore";
 
 
 const userStore = useUserStore()
+const eventStore = useEventStore()
 const gameService: GameService = <GameService>inject('gameService')
 
 const props = defineProps<{
