@@ -1,4 +1,10 @@
 <template>
+  <div>
+    <h1 class="is-uppercase has-text-centered is-size-1 mb-4">
+      Brettbuttler
+    </h1>
+    <ExplanationText class="mb-2"/>
+  </div>
   <div class="level">
     <div class="level-left"/>
     <div class="level-right">
@@ -19,7 +25,7 @@
     </div>
   </div>
   <h1 class="is-size-2 mb-4">
-    Active
+    Future Events
   </h1>
   <div class="columns is-multiline is-flex">
     <div
@@ -36,7 +42,7 @@
   </div>
 
   <h1 class="is-size-2 mb-4">
-    Past
+    Past Events
   </h1>
   <div class="columns is-multiline is-flex">
     <div
@@ -81,6 +87,7 @@ import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
 import {useEventStore} from "../stores/EventStore";
 import {useUserStore} from "../stores/UserStore";
 import UserPromptModal from "../components/modals/UserPromptModal.vue";
+import ExplanationText from "../components/ExplanationText.vue";
 
 const eventStore = useEventStore()
 const userStore = useUserStore()

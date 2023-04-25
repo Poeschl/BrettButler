@@ -1,8 +1,4 @@
 <template>
-  <h1 class="is-uppercase has-text-centered is-size-1 mb-4">
-    Brettbuttler
-  </h1>
-
   <div class="columns">
     <div class="column">
       <p class="box has-text-centered">
@@ -19,18 +15,30 @@
     <div class="column">
       <div class="box has-text-centered">
         <p>
-          Built with ❤️ and 🍵 by <a
+          Built with ❤️ and 🍵 by
+          <a
             target="_blank"
             href="//poeschl.xyz"
-        >Markus Pöschl</a>
+          >
+            Markus Pöschl
+          </a>
         </p>
         <p>
-          Source is available on <a
+          Source is available on
+          <a
             target="_blank"
             href="https://github.com/Poeschl/BrettButtler"
-        >GitHub</a>
+          >
+            GitHub
+          </a>
         </p>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.columns {
+  align-items: center;
+}
+</style>
