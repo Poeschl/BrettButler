@@ -1,4 +1,7 @@
 <template>
+  <h1 class="is-uppercase has-text-centered is-size-1 mb-4">
+    Available Games
+  </h1>
   <div class="level">
     <div class="level-left"/>
     <div class="level-right">
