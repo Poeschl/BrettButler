@@ -1,10 +1,10 @@
 import {defineStore, StoreDefinition} from "pinia";
-import {computed, ref} from "vue";
+import {computed, ComputedRef, Ref, ref} from "vue";
 
 export const useUserStore: StoreDefinition<"userStore"> = defineStore('userStore', () => {
-  const username = ref<string | undefined>()
+  const username: Ref<string | undefined> = ref()
 
-  const isUserDefined = computed<boolean>(() => {
+  const isUserDefined: ComputedRef<boolean> = computed(() => {
     return username.value !== undefined
   })
 

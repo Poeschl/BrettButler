@@ -29,7 +29,7 @@
                     <p class="">
                       Added by {{ game.owner }}
                     </p>
-                    <div v-if="!props.readOnly">
+                    <div v-if="!props.readOnly && game.owner === userStore.username">
                       <a title="Remove Game for this event">
                         <FontAwesomeIcon
                           class="is-small"
@@ -49,9 +49,10 @@
                         <li
                           v-for="user in game.players"
                           :key="user"
+                          class="mr-2"
                         >
                           {{ user }}
-                          <a v-if="!props.readOnly">
+                          <a v-if="!props.readOnly && user === userStore.username">
                             <FontAwesomeIcon
                               class="is-small"
                               icon="fa-solid fa-user-minus"
@@ -64,12 +65,14 @@
                           v-for="n in (gameService.getMaxPlayers(game.game) - game.players.length )"
                           :key="n"
                         >
-                          <a>
+                          <span class="mr-2 has-text-grey-light">Free seat</span>
+                          <a
+                            v-if="!userInGame(userStore.username, game)"
+                          >
                             <FontAwesomeIcon
                               class="is-small"
                               icon="fa-solid fa-user-plus"
                             />
-                            Take seat
                           </a>
                         </li>
                       </ul>
@@ -89,9 +92,14 @@
 import Event from "../../models/Event";
 import BaseDetailModal from "./BaseDetailModal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
+import {useUserStore} from "../../stores/UserStore";
+import PlayingGame from "../../models/PlayingGame";
+import {inject} from "vue";
 import GameService from "../../services/GameService";
 
-const gameService = new GameService()
+
+const userStore = useUserStore()
+const gameService: GameService = <GameService>inject('gameService')
 
 const props = defineProps<{
   event: Event,
@@ -101,6 +109,10 @@ const props = defineProps<{
 defineEmits<{
   (e: 'close'): void
 }>()
+
+const userInGame = (username: string, game: PlayingGame): boolean => {
+  return game.players.includes(username)
+}
 </script>
 
 <style scoped lang="scss">
