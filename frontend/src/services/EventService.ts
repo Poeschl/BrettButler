@@ -1,4 +1,6 @@
 import type Event from '../models/Event'
+import PlayingGame from "../models/PlayingGame";
+import Game from "../models/Game";
 
 export default class EventService {
 
@@ -77,5 +79,33 @@ export default class EventService {
   deleteEvent = (event: Event) => {
     console.info("Deletion of " + JSON.stringify(event))
     this.mock = this.mock.filter(value => value.id !== event.id)
+  }
+
+  addUserToGame = (event: Event, user: string, game: PlayingGame) => {
+    console.info("Add user to game of event")
+    const existingGame = event.playedGames.find(value => value.id === game.id)
+    if (existingGame !== undefined && !existingGame.players.includes(user)) {
+      existingGame.players.push(user)
+    }
+  }
+
+  removeUserFromGame = (event: Event, user: string, game: PlayingGame) => {
+    console.info("Remove user from game of event")
+    const existingGame = event.playedGames.find(value => value.id === game.id)
+    if (existingGame !== undefined) {
+      existingGame.players = existingGame.players.filter(value => value !== user)
+    }
+  }
+
+  addGameToEvent = (event: Event, game: Game, user: string) => {
+    console.info("Remove user from game of event")
+    event.playedGames.push({id: undefined, game: game, players: [], owner: user})
+  }
+
+  removeGameFromEvent = (event: Event, game: Game) => {
+    const existingGame = event.playedGames.find(value => value.id === game.id)
+    if (existingGame !== undefined) {
+      event.playedGames = event.playedGames.filter(value => value.game.id !== game.id)
+    }
   }
 }
