@@ -53,7 +53,7 @@ const emit = defineEmits<{
   (e: 'delete:event', val: Event): void
 }>()
 
-const event = ref(props.event)
+const event = ref<Event>(props.event)
 const isNew = computed(() => {
   return props.event.id === undefined
 })

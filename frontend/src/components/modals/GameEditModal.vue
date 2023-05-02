@@ -32,7 +32,7 @@
         placeholder="Type the number of players, eg. 2-4 or 4"
         :max-length="10"
         :validate="(value) => {
-          const regex = RegExp('^[1-9]+(-[1-9]+)?$')
+          const regex = RegExp('^[1-9][0-9]*(-[0-9]+)?$')
           return regex.test(value)
         }"
       />

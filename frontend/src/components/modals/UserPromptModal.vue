@@ -5,6 +5,7 @@
         Enter your name to continue
       </h4>
     </template>
+
     <template #content>
       <TextInput
         v-model:value="username"
@@ -15,6 +16,7 @@
         :validate="(value) => {
           return value.length > 3
         }"
+        @keydown.enter="$emit('username:save', username)"
       />
     </template>
     <template #footer>

@@ -97,13 +97,15 @@ export default class EventService {
     }
   }
 
-  addGameToEvent = (event: Event, game: Game, user: string) => {
+  addGameToEvent = (event: Event, game: Game, user: string): PlayingGame => {
     console.info("Remove user from game of event")
-    event.playedGames.push({id: undefined, game: game, players: [], owner: user})
+    const newGame: PlayingGame = {id: undefined, game: game, players: [], owner: user}
+    event.playedGames.push(newGame)
+    return newGame
   }
 
   removeGameFromEvent = (event: Event, game: Game) => {
-    const existingGame = event.playedGames.find(value => value.id === game.id)
+    const existingGame = event.playedGames.find(value => value.game.id === game.id)
     if (existingGame !== undefined) {
       event.playedGames = event.playedGames.filter(value => value.game.id !== game.id)
     }

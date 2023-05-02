@@ -2,7 +2,7 @@
   <div class="columns">
     <div class="column">
       <p class="box has-text-centered">
-        Bringbuttler is a software to makes it easier for you to plan the next board game event.
+        Brettbuttler is a software to makes it easier for you to plan the next board game event.
         Especially when there are several board games and more people then player seats.
       </p>
     </div>
