@@ -88,10 +88,21 @@
               </div>
             </div>
           </div>
+          <div
+            v-if="!readOnly"
+            class="mt-2 is-flex is-justify-content-center"
+          >
+            <NewGameDropdown @new-game:clicked="toggleNewGameSelection"/>
+          </div>
         </div>
       </div>
     </template>
   </BaseDetailModal>
+  <GameSelectModal
+    v-if="newGameSelectionShown"
+    :games="gameStore.games"
+    @game:selected="addGameToEvent"
+  />
 </template>
 
 <script setup lang="ts">
@@ -100,13 +111,17 @@ import BaseDetailModal from "./BaseDetailModal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {useUserStore} from "../../stores/UserStore";
 import PlayingGame from "../../models/PlayingGame";
-import {inject} from "vue";
+import {inject, ref} from "vue";
 import GameService from "../../services/GameService";
 import {useEventStore} from "../../stores/EventStore";
-
+import NewGameDropdown from "../NewGameButton.vue";
+import GameSelectModal from "./GameSelectModal.vue";
+import {useGameStore} from "../../stores/GameStore";
+import Game from "../../models/Game";
 
 const userStore = useUserStore()
 const eventStore = useEventStore()
+const gameStore = useGameStore()
 const gameService: GameService = <GameService>inject('gameService')
 
 const props = defineProps<{
@@ -118,8 +133,20 @@ defineEmits<{
   (e: 'close'): void
 }>()
 
+const newGameSelectionShown = ref<boolean>(false)
+
 const userInGame = (username: string, game: PlayingGame): boolean => {
   return game.players.includes(username)
+}
+
+function toggleNewGameSelection() {
+  newGameSelectionShown.value = !newGameSelectionShown.value
+}
+
+function addGameToEvent(game: Game) {
+  newGameSelectionShown.value = false
+  const newGame = eventStore.addGameToEvent(props.event, game, userStore.username)
+  eventStore.addUserToGame(props.event, userStore.username, newGame)
 }
 </script>
 

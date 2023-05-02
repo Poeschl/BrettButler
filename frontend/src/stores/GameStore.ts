@@ -8,6 +8,7 @@ export const useGameStore: StoreDefinition<"gamesStore"> = defineStore('gamesSto
   const games = ref<Game[]>(gameService.getAllGames())
 
   function updateList() {
+    games.value = []
     games.value = gameService.getAllGames()
   }
 

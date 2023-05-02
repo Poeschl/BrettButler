@@ -6,6 +6,7 @@ import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faPenToSquare} from "@fortawesome/free-regular-svg-icons";
 import {
+  faAngleDown,
   faDice,
   faPlus,
   faRightFromBracket,
@@ -19,7 +20,7 @@ import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
 const app: Application<Element> = createApp(App)
 
-library.add(faPenToSquare, faDice, faPlus, faUserPlus, faUserMinus, faSquareMinus, faUser, faRightFromBracket)
+library.add(faPenToSquare, faDice, faPlus, faUserPlus, faUserMinus, faSquareMinus, faUser, faRightFromBracket, faAngleDown)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 app.use(router)

@@ -48,7 +48,7 @@
     <div
       v-for="event in pastEvents"
       :key="event.id"
-      class="column is-one-third is-full-mobile"
+      class="column is-one-third-widescreen is-half-desktop is-half-tablet is-full-mobile"
     >
       <EventCard
         :event="event"
@@ -93,9 +93,8 @@ const eventStore = useEventStore()
 const userStore = useUserStore()
 
 const today = getStartOfDay()
-const allEvents = ref<Event[]>(eventStore.events)
-const pastEvents = computed<Event[]>(() => allEvents.value.filter(event => event.date < today));
-const activeEvents = computed<Event[]>(() => allEvents.value.filter(event => event.date >= today))
+const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today));
+const activeEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date >= today))
 
 function getStartOfDay() {
   const now = new Date()
@@ -143,6 +142,7 @@ const openEditModal = (event: Event | null) => {
 
 const saveEvent = (event: Event) => {
   eventStore.saveEvent(event);
+  closeModal()
 }
 
 const deleteEvent = (event: Event) => {

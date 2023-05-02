@@ -10,15 +10,16 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
   const events = ref<Event[]>(eventService.getAllEvents())
 
   function updateList() {
+    events.value = []
     events.value = eventService.getAllEvents()
   }
 
-  function saveGame(event: Event) {
+  function saveEvent(event: Event) {
     eventService.saveEvent(event)
     updateList()
   }
 
-  function deleteGame(event: Event) {
+  function deleteEvent(event: Event) {
     eventService.deleteEvent(event)
     updateList()
   }
@@ -33,9 +34,10 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
     updateList()
   }
 
-  function addGameToEvent(event: Event, game: Game, user: string) {
-    eventService.addGameToEvent(event, game, user)
+  function addGameToEvent(event: Event, game: Game, user: string): PlayingGame {
+    const newGame = eventService.addGameToEvent(event, game, user)
     updateList()
+    return newGame
   }
 
   function removeGameFromEvent(event: Event, game: Game) {
@@ -46,8 +48,8 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
   return {
     events,
     updateList,
-    saveGame,
-    deleteGame,
+    saveEvent,
+    deleteEvent,
     addUserToGame,
     removeUserFromGame,
     addGameToEvent,
