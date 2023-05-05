@@ -1,23 +1,24 @@
 package xyz.poeschl.brettbutler.repositories
 
-import jakarta.validation.constraints.Min
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import jakarta.validation.constraints.Size
-import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
-import org.springframework.data.repository.kotlin.CoroutineCrudRepository
+import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
+
+@Entity
 @Table(name = "games")
 data class Game(
-  @Id val id: Long,
-  @Column("game_name") @Size(max = 200, message = "The name can be at least 200 characters long") var name: String,
-  @Min(value = 2, message = "A game needs at least 2 player.") var numberOfPlayers: Int,
-  @Size(max = 400, message = "The description can be at least 400 characters long") var description: String,
-  @Size(max = 200, message = "The url can be at least 200 characters long") var url: String
+        @Id val id: Long,
+        @Column(name = "game_name") @Size(max = 200) var name: String,
+        @Column(name = "number_of_players") @Size(min = 1, max = 20) var numberOfPlayers: String,
+        @Column(name = "playtime_in_minutes") var playtimeInMinutes: Int,
+        @Size(max = 400) var description: String,
+        @Size(max = 200) var url: String
 )
 
 @Repository
-interface GameRepository : CoroutineCrudRepository<Game, Long> {
-
-}
+interface GameRepository : CrudRepository<Game, Long>
