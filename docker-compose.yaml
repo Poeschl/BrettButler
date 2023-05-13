@@ -1,6 +1,22 @@
 version: '3'
 services:
 
+  traefik:
+    image: 'traefik:v2.9.6'
+    command:
+      - '--log.level=DEBUG'
+      - '--ping.entrypoint=web'
+      - "--providers.file.directory=/config"
+      - '--entrypoints.web.address=:8888'
+      - '--accesslog=true'
+      - '--providers.docker.network=lemon_network'
+    network_mode: host
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - './config:/config'
+    environment:
+      - HOSTNAME
+
   database:
     image: "postgres:15.2-alpine"
     ports:
