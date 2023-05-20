@@ -15,4 +15,6 @@ import EventService from "./services/EventService";
 
 provide<GameService>('gameService', new GameService())
 provide<EventService>('eventService', new EventService())
+
+console.info(`Swagger UI: ${window.location.origin}/rest/swagger-ui`)
 </script>

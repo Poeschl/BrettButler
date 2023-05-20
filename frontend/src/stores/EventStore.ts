@@ -7,21 +7,40 @@ import Game from "../models/Game";
 
 const eventService = new EventService()
 export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('eventsStore', () => {
-  const events = ref<Event[]>(eventService.getAllEvents())
+  const events = ref<Event[]>([])
 
   function updateList() {
-    events.value = []
-    events.value = eventService.getAllEvents()
+    eventService.getAllEvents()
+      .then(response => {
+        events.value = []
+        events.value = response
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not get event list. (${reason})`)
+      })
   }
 
   function saveEvent(event: Event) {
     eventService.saveEvent(event)
-    updateList()
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not save event. (${reason})`)
+      })
   }
 
   function deleteEvent(event: Event) {
     eventService.deleteEvent(event)
-    updateList()
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not delete event. (${reason})`)
+      })
   }
 
   function addUserToGame(event: Event, user: string, game: PlayingGame) {

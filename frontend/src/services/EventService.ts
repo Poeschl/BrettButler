@@ -1,84 +1,24 @@
 import type Event from '../models/Event'
 import PlayingGame from "../models/PlayingGame";
 import Game from "../models/Game";
+import axios from "axios";
 
 export default class EventService {
 
-  mock: Event[] = [{
-    id: 1,
-    date: new Date('2023-07-30T18:00:00.000Z'),
-    playedGames: [
-      {
-        id: 1,
-        owner: "User 1",
-        players: ["Hans", "Peter"],
-        game: {
-          id: 1,
-          name: 'Example Game',
-          numberOfPlayers: '2-6',
-          playtimeInMinutes: 190,
-          description: 'A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone',
-          url: 'https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition'
-        }
-      },
-      {
-        id: 2,
-        owner: "User 3",
-        players: ["Hans", "Peter", "Max"],
-        game: {
-          id: 2,
-          name: 'Example Game 2',
-          numberOfPlayers: '1-4',
-          playtimeInMinutes: 60,
-          description: 'A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone.A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone',
-          url: 'https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition'
-        }
-      }]
-  },
-    {
-      id: 2,
-      date: new Date('2023-03-31T18:00:00.000Z'),
-      playedGames: [
-        {
-          id: 1,
-          owner: "User 1",
-          players: ["Hans", "Peter"],
-          game: {
-            id: 1,
-            name: 'Example Game',
-            numberOfPlayers: '2-6',
-            playtimeInMinutes: 190,
-            description: 'A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone',
-            url: 'https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition'
-          }
-        },
-        {
-          id: 2,
-          owner: "User 3",
-          players: ["Hans", "Peter", "Max"],
-          game: {
-            id: 2,
-            name: 'Example Game 2',
-            numberOfPlayers: '1-4',
-            playtimeInMinutes: 60,
-            description: 'A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone.A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone',
-            url: 'https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition'
-          }
-        }]
-    }]
+  private baseEventUrl = '/rest/events'
 
-  getAllEvents(): Event[] {
-    return this.mock
+  getAllEvents(): Promise<Event[]> {
+    return axios.get(this.baseEventUrl)
+      .then(response => response.data)
   }
 
-  saveEvent = (event: Event) => {
-    console.info("Save " + JSON.stringify(event))
-    this.mock.push(event)
+  saveEvent = (event: Event): Promise<Event> => {
+    return axios.post(this.baseEventUrl, event)
+      .then(response => response.data)
   }
 
   deleteEvent = (event: Event) => {
-    console.info("Deletion of " + JSON.stringify(event))
-    this.mock = this.mock.filter(value => value.id !== event.id)
+    return axios.delete(`${this.baseEventUrl}/${event.id}`)
   }
 
   addUserToGame = (event: Event, user: string, game: PlayingGame) => {

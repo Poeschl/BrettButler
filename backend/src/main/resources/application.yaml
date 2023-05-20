@@ -9,6 +9,10 @@ spring:
     open-in-view: true
   flyway:
     validate-migration-naming: true
-  data:
-    rest:
-      base-path: "/rest"
+  mvc:
+    servlet:
+      path: "/rest"
+
+springdoc:
+  swagger-ui:
+    path: "/swagger-ui"

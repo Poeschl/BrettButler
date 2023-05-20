@@ -52,17 +52,21 @@
 import GameCard from '../components/GameCard.vue'
 import GameDetailsModal from "../components/modals/GameDetailsModal.vue";
 import Game, {createEmptyGame} from "../models/Game";
-import {ref} from "vue";
+import {computed, onMounted, Ref, ref} from "vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 import GameEditModal from "../components/modals/GameEditModal.vue";
 import {useGameStore} from "../stores/GameStore";
 
 const gamesStore = useGameStore()
-const gameList = ref<Game[]>(gamesStore.games)
+const gameList = computed<Game[]>(() => gamesStore.games)
 
-const modalGame = ref<Game>(gameList.value[0])
+const modalGame: Ref<Game> = ref<Game>(createEmptyGame())
 const showDetails = ref(false)
 const showEdit = ref(false)
+
+onMounted(() => {
+  gamesStore.updateList()
+})
 
 const openDetailModal = (game: Game) => {
   modalGame.value = game

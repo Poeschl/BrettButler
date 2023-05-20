@@ -1,52 +1,22 @@
 import Game from "../models/Game";
+import axios from "axios";
 
 export default class GameService {
 
-  mock: Game[] = [{
-    id: 1,
-    name: "Example Game",
-    numberOfPlayers: "2-6",
-    playtimeInMinutes: 190,
-    description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
-    url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
-  },
-    {
-      id: 2,
-      name: "Example Game 2",
-      numberOfPlayers: "1-4",
-      playtimeInMinutes: 60,
-      description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Some more glibberisch. And even even even even More to be sure enought for and overflow. Fun for everyone.A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
-      url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
-    },
-    {
-      id: 3,
-      name: "Example Game 3",
-      numberOfPlayers: "4",
-      playtimeInMinutes: 60,
-      description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
-      url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
-    },
-    {
-      id: 4,
-      name: "Example Game 4",
-      numberOfPlayers: "1-4",
-      playtimeInMinutes: 30,
-      description: "A random game to test with. It makes a lot of fun and can be learned pretty easily. Fun for everyone",
-      url: "https://boardgamegeek.com/boardgame/363112/shadowrun-sprawl-ops-legendary-edition"
-    }]
+  private baseEventUrl = '/rest/games'
 
-  getAllGames = (): Game[] => {
-    return this.mock;
+  getAllGames = (): Promise<Game[]> => {
+    return axios.get(this.baseEventUrl)
+      .then(response => response.data)
   }
 
-  saveGame = (game: Game) => {
-    console.info("Save " + JSON.stringify(game))
-    this.mock.push(game)
+  saveGame = (game: Game): Promise<Game> => {
+    return axios.post(this.baseEventUrl, game)
+      .then(response => response.data)
   }
 
-  deleteGame = (game: Game) => {
-    console.info("Deletion of " + JSON.stringify(game))
-    this.mock = this.mock.filter(value => value.id !== game.id)
+  deleteGame = (game: Game): Promise<void> => {
+    return axios.delete(`${this.baseEventUrl}/${game.id}`)
   }
 
   getMaxPlayers = (game: Game): number => {
