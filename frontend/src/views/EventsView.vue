@@ -58,10 +58,10 @@
     </div>
   </div>
   <EventDetailsModal
-    v-if="showDetails"
-    :event="modalEvent"
-    :readOnly="modalEventReadOnly"
-    @close="closeModal"
+          v-if="showDetails"
+          :event="modalEvent"
+          :read-only="modalEventReadOnly"
+          @close="closeModal"
   />
   <EventEditModal
     v-if="showEdit"
@@ -80,7 +80,7 @@
 <script setup lang="ts">
 import EventCard from '../components/EventCard.vue'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import Event, {createEmptyEvent} from "../models/Event";
 import EventEditModal from "../components/modals/EventEditModal.vue";
 import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
@@ -93,8 +93,12 @@ const eventStore = useEventStore()
 const userStore = useUserStore()
 
 const today = getStartOfDay()
-const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today));
+const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today))
 const activeEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date >= today))
+
+onMounted(() => {
+  eventStore.updateList()
+})
 
 function getStartOfDay() {
   const now = new Date()

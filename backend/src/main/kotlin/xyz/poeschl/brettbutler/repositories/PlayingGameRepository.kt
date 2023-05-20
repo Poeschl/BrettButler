@@ -5,6 +5,9 @@ import org.hibernate.Hibernate
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
+@Repository
+interface PlayingGameRepository : CrudRepository<PlayingGame, Long>
+
 @Entity
 @Table(name = "playing_games")
 data class PlayingGame(
@@ -16,6 +19,7 @@ data class PlayingGame(
                 inverseJoinColumns = [JoinColumn(name = "user_id")]) val player: ArrayList<User>,
         @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "event_id") val event: Event
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -25,12 +29,8 @@ data class PlayingGame(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
-
     @Override
     override fun toString(): String {
         return this::class.simpleName + "(id = $id )"
     }
 }
-
-@Repository
-interface PlayingGameRepository : CrudRepository<PlayingGame, Long>

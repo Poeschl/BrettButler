@@ -14,6 +14,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@fortawesome/vue-fontawesome": "^3.0.3",
+    "axios": "^1.4.0",
     "bulma": "^0.9.4",
     "bulma-calendar": "^6.1.19",
     "minireset.css": "^0.0.7",

@@ -5,21 +5,40 @@ import {ref} from "vue";
 
 const gameService = new GameService()
 export const useGameStore: StoreDefinition<"gamesStore"> = defineStore('gamesStore', () => {
-  const games = ref<Game[]>(gameService.getAllGames())
+  const games = ref<Game[]>([])
 
   function updateList() {
-    games.value = []
-    games.value = gameService.getAllGames()
+    gameService.getAllGames()
+      .then(response => {
+        games.value = []
+        games.value = response
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not get games list. (${reason})`)
+      })
   }
 
   function saveGame(game: Game) {
     gameService.saveGame(game)
-    updateList()
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not save game (${reason})`)
+      })
   }
 
   function deleteGame(game: Game) {
     gameService.deleteGame(game)
-    updateList()
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not delete game (${reason})`)
+      })
   }
 
   return {games, updateList, saveGame, deleteGame}

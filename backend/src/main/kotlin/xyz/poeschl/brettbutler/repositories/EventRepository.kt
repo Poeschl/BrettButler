@@ -6,6 +6,9 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.time.ZonedDateTime
 
+@Repository
+interface EventRepository : CrudRepository<Event, Long>
+
 @Entity
 @Table(name = "events")
 data class Event(
@@ -13,6 +16,7 @@ data class Event(
         @Column(name = "event_date") val eventDate: ZonedDateTime,
         @OneToMany(mappedBy = "event") val games: List<PlayingGame>
 ) {
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -22,12 +26,8 @@ data class Event(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
-
     @Override
     override fun toString(): String {
         return this::class.simpleName + "(id = $id )"
     }
 }
-
-@Repository
-interface EventRepository : CrudRepository<Event, Long>
