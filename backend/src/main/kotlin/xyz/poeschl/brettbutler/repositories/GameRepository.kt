@@ -2,6 +2,7 @@ package xyz.poeschl.brettbutler.repositories
 
 import jakarta.persistence.*
 import jakarta.validation.constraints.Size
+import org.hibernate.Hibernate
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
@@ -21,4 +22,20 @@ data class Game(
         @Column(name = "playtime_in_minutes") var playtimeInMinutes: Int,
         @Size(max = 400) var description: String,
         @Size(max = 200) var url: String
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
+        other as Game
+
+        return id != null && id == other.id
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
+    @Override
+    override fun toString(): String {
+        return this::class.simpleName + "(id = $id )"
+    }
+
+}

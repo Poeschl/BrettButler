@@ -2,19 +2,23 @@ package xyz.poeschl.brettbutler.repositories
 
 import jakarta.persistence.*
 import org.hibernate.Hibernate
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 import java.time.ZonedDateTime
 
 @Repository
-interface EventRepository : CrudRepository<Event, Long>
+interface EventRepository : CrudRepository<Event, Long> {
+
+    fun findAll(sort: Sort): List<Event>
+}
 
 @Entity
 @Table(name = "events")
 data class Event(
-        @Id val id: Long,
-        @Column(name = "event_date") val eventDate: ZonedDateTime,
-        @OneToMany(mappedBy = "event") val games: List<PlayingGame>
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(insertable = false) val id: Long?,
+        @Column(name = "event_date") var eventDate: ZonedDateTime,
+        @OneToMany(mappedBy = "event") var games: MutableList<PlayingGame>
 ) {
 
     override fun equals(other: Any?): Boolean {

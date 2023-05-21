@@ -6,17 +6,21 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PlayingGameRepository : CrudRepository<PlayingGame, Long>
+interface PlayingGameRepository : CrudRepository<PlayingGame, Long> {
+    fun saveAndFlush(playingGame: PlayingGame): PlayingGame
+
+    fun flush()
+}
 
 @Entity
 @Table(name = "playing_games")
 data class PlayingGame(
-        @Id val id: Long,
-        @OneToOne @JoinColumn(name = "owner_id") val owner: User,
-        @OneToOne @JoinColumn(name = "game_id") val game: Game,
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(insertable = false) val id: Long?,
+        @OneToOne @JoinColumn(name = "owner_id") var owner: User,
+        @OneToOne @JoinColumn(name = "game_id") var game: Game,
         @ManyToMany(fetch = FetchType.LAZY) @JoinTable(name = "playing_game_user",
                 joinColumns = [JoinColumn(name = "playing_game_id")],
-                inverseJoinColumns = [JoinColumn(name = "user_id")]) val player: ArrayList<User>,
+                inverseJoinColumns = [JoinColumn(name = "user_id")]) var player: MutableList<User>,
         @ManyToOne(fetch = FetchType.LAZY) @JoinColumn(name = "event_id") val event: Event
 ) {
 
@@ -29,6 +33,7 @@ data class PlayingGame(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
+
     @Override
     override fun toString(): String {
         return this::class.simpleName + "(id = $id )"

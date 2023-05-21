@@ -1,20 +1,22 @@
 package xyz.poeschl.brettbutler.repositories
 
-import jakarta.persistence.Entity
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import jakarta.validation.constraints.Size
 import org.hibernate.Hibernate
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Repository
+import java.util.*
 
 @Repository
-interface UserRepository : CrudRepository<User, Long>
+interface UserRepository : CrudRepository<User, Long> {
+
+    fun findByUsername(username: String): Optional<User>
+}
 
 @Entity
 @Table(name = "users")
 data class User(
-        @Id val id: Long,
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(insertable = false) val id: Long?,
         @Size(max = 100) val username: String
 ) {
 
@@ -27,6 +29,7 @@ data class User(
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
+
     @Override
     override fun toString(): String {
         return this::class.simpleName + "(id = $id )"
