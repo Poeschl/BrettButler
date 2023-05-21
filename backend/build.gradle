@@ -48,6 +48,12 @@ noArg {
     annotation("jakarta.persistence.Entity")
 }
 
+kapt {
+    arguments {
+        arg('mapstruct.defaultComponentModel', 'spring')
+    }
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }
