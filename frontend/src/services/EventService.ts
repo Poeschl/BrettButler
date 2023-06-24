@@ -2,6 +2,7 @@ import type Event from '../models/Event'
 import PlayingGame from "../models/PlayingGame";
 import Game from "../models/Game";
 import axios from "axios";
+import User from "../models/User";
 
 export default class EventService {
 
@@ -9,7 +10,12 @@ export default class EventService {
 
   getAllEvents(): Promise<Event[]> {
     return axios.get(this.baseEventUrl)
-      .then(response => response.data)
+      .then(response =>
+        response.data
+          .map((origin: Event) => {
+            return {id: origin.id, date: new Date(origin.date), playedGames: origin.playedGames}
+          })
+      )
   }
 
   saveEvent = (event: Event): Promise<Event> => {
@@ -21,7 +27,7 @@ export default class EventService {
     return axios.delete(`${this.baseEventUrl}/${event.id}`)
   }
 
-  addUserToGame = (event: Event, user: string, game: PlayingGame) => {
+  addUserToGame = (event: Event, user: User, game: PlayingGame) => {
     console.info("Add user to game of event")
     const existingGame = event.playedGames.find(value => value.id === game.id)
     if (existingGame !== undefined && !existingGame.players.includes(user)) {
@@ -29,7 +35,7 @@ export default class EventService {
     }
   }
 
-  removeUserFromGame = (event: Event, user: string, game: PlayingGame) => {
+  removeUserFromGame = (event: Event, user: User, game: PlayingGame) => {
     console.info("Remove user from game of event")
     const existingGame = event.playedGames.find(value => value.id === game.id)
     if (existingGame !== undefined) {
@@ -37,7 +43,7 @@ export default class EventService {
     }
   }
 
-  addGameToEvent = (event: Event, game: Game, user: string): PlayingGame => {
+  addGameToEvent = (event: Event, game: Game, user: User): PlayingGame => {
     console.info("Remove user from game of event")
     const newGame: PlayingGame = {id: undefined, game: game, players: [], owner: user}
     event.playedGames.push(newGame)

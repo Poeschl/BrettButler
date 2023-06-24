@@ -8,7 +8,7 @@
 
     <template #content>
       <TextInput
-        v-model:value="username"
+        v-model:value="user.username"
         help="This name will be displayed on the website when you participate on a game or bring one."
         label="Your display name"
         placeholder="Type a human readable name"
@@ -16,14 +16,14 @@
         :validate="(value) => {
           return value.length > 3
         }"
-        @keydown.enter="$emit('username:save', username)"
+        @keydown.enter="$emit('username:save', user)"
       />
     </template>
     <template #footer>
       <EditModalFooter
         :show-delete="false"
         @cancel="$emit('close')"
-        @save="$emit('username:save', username)"
+        @save="$emit('username:save', user)"
       />
     </template>
   </BaseEditModal>
@@ -34,12 +34,13 @@ import EditModalFooter from "../EditModalFooter.vue";
 import BaseEditModal from "./BaseEditModal.vue";
 import TextInput from "../forms/TextInput.vue";
 import {ref} from "vue";
+import User, {createEmptyUser} from "../../models/User";
 
-const username = ref<string>("")
+const user = ref<User>(createEmptyUser())
 
 const emit = defineEmits<{
   (e: 'close'): void
-  (e: 'username:save', val: string): void
+  (e: 'username:save', val: User): void
 }>()
 </script>
 

@@ -58,10 +58,10 @@
     </div>
   </div>
   <EventDetailsModal
-          v-if="showDetails"
-          :event="modalEvent"
-          :read-only="modalEventReadOnly"
-          @close="closeModal"
+    v-if="showDetails"
+    :event="modalEvent"
+    :read-only="modalEventReadOnly"
+    @close="closeModal"
   />
   <EventEditModal
     v-if="showEdit"
@@ -88,23 +88,22 @@ import {useEventStore} from "../stores/EventStore";
 import {useUserStore} from "../stores/UserStore";
 import UserPromptModal from "../components/modals/UserPromptModal.vue";
 import ExplanationText from "../components/ExplanationText.vue";
+import User from "../models/User";
+import {useGameStore} from "../stores/GameStore";
 
 const eventStore = useEventStore()
+const gamesStore = useGameStore()
 const userStore = useUserStore()
 
-const today = getStartOfDay()
-const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today))
-const activeEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date >= today))
+const now = new Date()
+const events = computed<Event[]>(() => eventStore.events)
+const pastEvents = computed<Event[]>(() => events.value.filter((event: Event) => event.date < now))
+const activeEvents = computed<Event[]>(() => events.value.filter((event: Event) => event.date >= now))
 
 onMounted(() => {
+  gamesStore.updateList()
   eventStore.updateList()
 })
-
-function getStartOfDay() {
-  const now = new Date()
-  now.setHours(0, 0, 0)
-  return now
-}
 
 const modalEvent = ref<Event>(activeEvents.value[0])
 const modalEventReadOnly = ref<boolean>(false)
@@ -122,8 +121,8 @@ const openDetailModal = (event: Event, readOnly: boolean) => {
   }
 }
 
-const acceptUserPrompt = (username: string) => {
-  userStore.setUser(username)
+const acceptUserPrompt = (user: User) => {
+  userStore.setUser(user)
   showUserPrompt.value = false
   showDetails.value = true
 }

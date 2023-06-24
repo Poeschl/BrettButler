@@ -4,6 +4,7 @@ import EventService from "../services/EventService";
 import {ref} from "vue";
 import PlayingGame from "../models/PlayingGame";
 import Game from "../models/Game";
+import User from "../models/User";
 
 const eventService = new EventService()
 export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('eventsStore', () => {
@@ -43,17 +44,17 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
       })
   }
 
-  function addUserToGame(event: Event, user: string, game: PlayingGame) {
+  function addUserToGame(event: Event, user: User, game: PlayingGame) {
     eventService.addUserToGame(event, user, game)
     updateList()
   }
 
-  function removeUserFromGame(event: Event, user: string, game: PlayingGame) {
+  function removeUserFromGame(event: Event, user: User, game: PlayingGame) {
     eventService.removeUserFromGame(event, user, game)
     updateList()
   }
 
-  function addGameToEvent(event: Event, game: Game, user: string): PlayingGame {
+  function addGameToEvent(event: Event, game: Game, user: User): PlayingGame {
     const newGame = eventService.addGameToEvent(event, game, user)
     updateList()
     return newGame
