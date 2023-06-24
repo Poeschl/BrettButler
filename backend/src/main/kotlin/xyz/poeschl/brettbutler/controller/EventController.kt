@@ -22,7 +22,7 @@ class EventController(
 
   @GetMapping(produces = [MediaType.APPLICATION_JSON_VALUE])
   fun getAll(): List<EventDto> {
-    val allEvents = eventRepository.findAll(Sort.by("eventDate"))
+    val allEvents = eventRepository.findAll(Sort.by("eventDate", "games.id"))
     return allEvents.map(eventMapper::toDto)
   }
 

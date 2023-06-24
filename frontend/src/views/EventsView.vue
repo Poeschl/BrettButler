@@ -123,8 +123,12 @@ const openDetailModal = (event: Event, readOnly: boolean) => {
 
 const acceptUserPrompt = (user: User) => {
   userStore.setUser(user)
-  showUserPrompt.value = false
-  showDetails.value = true
+    .then(() => {
+      showUserPrompt.value = false
+      showDetails.value = true
+      return
+    })
+    .catch(() => console.error("Error on user retrieval"))
 }
 
 const closeModal = () => {

@@ -20,40 +20,47 @@ export default class EventService {
 
   saveEvent = (event: Event): Promise<Event> => {
     return axios.post(this.baseEventUrl, event)
-      .then(response => response.data)
+      .then(response => {
+        const event: Event = response.data
+        return {id: event.id, date: new Date(event.date), playedGames: event.playedGames}
+      })
   }
 
   deleteEvent = (event: Event) => {
     return axios.delete(`${this.baseEventUrl}/${event.id}`)
   }
 
-  addUserToGame = (event: Event, user: User, game: PlayingGame) => {
-    console.info("Add user to game of event")
-    const existingGame = event.playedGames.find(value => value.id === game.id)
-    if (existingGame !== undefined && !existingGame.players.includes(user)) {
-      existingGame.players.push(user)
-    }
+  addUserToGame = (event: Event, user: User, game: PlayingGame): Promise<Event> => {
+    return axios.post(`${this.baseEventUrl}/${event.id}/games/${game.id}/players`,
+      {userId: user.id})
+      .then(response => {
+        const event: Event = response.data
+        return {id: event.id, date: new Date(event.date), playedGames: event.playedGames}
+      })
   }
 
-  removeUserFromGame = (event: Event, user: User, game: PlayingGame) => {
-    console.info("Remove user from game of event")
-    const existingGame = event.playedGames.find(value => value.id === game.id)
-    if (existingGame !== undefined) {
-      existingGame.players = existingGame.players.filter(value => value !== user)
-    }
+  removeUserFromGame = (event: Event, user: User, game: PlayingGame): Promise<Event> => {
+    return axios.delete(`${this.baseEventUrl}/${event.id}/games/${game.id}/players/${user.id}`)
+      .then(response => {
+        const event: Event = response.data
+        return {id: event.id, date: new Date(event.date), playedGames: event.playedGames}
+      })
   }
 
-  addGameToEvent = (event: Event, game: Game, user: User): PlayingGame => {
-    console.info("Remove user from game of event")
-    const newGame: PlayingGame = {id: undefined, game: game, players: [], owner: user}
-    event.playedGames.push(newGame)
-    return newGame
+  addGameToEvent = (event: Event, game: Game, user: User): Promise<Event> => {
+    return axios.post(`${this.baseEventUrl}/${event.id}/games`,
+      {ownerId: user.id, gameId: game.id})
+      .then(response => {
+        const event: Event = response.data
+        return {id: event.id, date: new Date(event.date), playedGames: event.playedGames}
+      })
   }
 
-  removeGameFromEvent = (event: Event, game: Game) => {
-    const existingGame = event.playedGames.find(value => value.game.id === game.id)
-    if (existingGame !== undefined) {
-      event.playedGames = event.playedGames.filter(value => value.game.id !== game.id)
-    }
+  removeGameFromEvent = (event: Event, game: Game): Promise<Event> => {
+    return axios.delete(`${this.baseEventUrl}/${event.id}/games/${game.id}`)
+      .then(response => {
+        const event: Event = response.data
+        return {id: event.id, date: new Date(event.date), playedGames: event.playedGames}
+      })
   }
 }
