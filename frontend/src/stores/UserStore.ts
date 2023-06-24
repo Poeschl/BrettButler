@@ -11,8 +11,8 @@ export const useUserStore: StoreDefinition<"userStore"> = defineStore('userStore
     return user.value !== undefined
   })
 
-  function setUser(newUser: User) {
-    userService.getUser(newUser.username)
+  function setUser(newUser: User): Promise<User | void> {
+    return userService.getUser(newUser.username)
       .then(value => user.value = value)
       .catch(() => {
         const nUser = createEmptyUser()

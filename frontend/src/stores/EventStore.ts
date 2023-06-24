@@ -44,25 +44,48 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
       })
   }
 
-  function addUserToGame(event: Event, user: User, game: PlayingGame) {
-    eventService.addUserToGame(event, user, game)
-    updateList()
+  function addUserToGame(event: Event, user: User, game: PlayingGame): Promise<Event | void> {
+    return eventService.addUserToGame(event, user, game)
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not add user to game. (${reason})`)
+      })
   }
 
-  function removeUserFromGame(event: Event, user: User, game: PlayingGame) {
-    eventService.removeUserFromGame(event, user, game)
-    updateList()
+
+  function removeUserFromGame(event: Event, user: User, game: PlayingGame): Promise<Event | void> {
+    return eventService.removeUserFromGame(event, user, game).then(response => {
+      updateList()
+      return response
+    })
+      .catch(reason => {
+        console.error(`Could not remove user from game. (${reason})`)
+      })
   }
 
-  function addGameToEvent(event: Event, game: Game, user: User): PlayingGame {
-    const newGame = eventService.addGameToEvent(event, game, user)
-    updateList()
-    return newGame
+  function addGameToEvent(event: Event, game: Game, user: User): Promise<Event | void> {
+    return eventService.addGameToEvent(event, game, user)
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not add game to event. (${reason})`)
+      })
   }
 
   function removeGameFromEvent(event: Event, game: Game) {
     eventService.removeGameFromEvent(event, game)
-    updateList()
+      .then(response => {
+        updateList()
+        return response
+      })
+      .catch(reason => {
+        console.error(`Could not remove game from event. (${reason})`)
+      })
   }
 
   return {
