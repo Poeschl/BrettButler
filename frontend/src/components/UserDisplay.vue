@@ -4,7 +4,7 @@
       class="mr-2"
       icon="fa-solid fa-user"
     />
-    <span>{{ userStore.username }}</span>
+    <span>{{ userStore.user.username }}</span>
     <a
       @click="clearUser"
       class="mr-1 ml-2 has-text-grey-light"

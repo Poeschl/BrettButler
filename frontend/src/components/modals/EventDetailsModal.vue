@@ -27,9 +27,9 @@
                       {{ game.game.numberOfPlayers }} Players
                     </p>
                     <p class="">
-                      Added by {{ game.owner }}
+                      Added by {{ game.owner.username }}
                     </p>
-                    <div v-if="!props.readOnly && game.owner === userStore.username">
+                    <div v-if="!props.readOnly && game.owner.id === userStore.user.id">
                       <a
                         title="Remove Game for this event"
                         @click="eventStore.removeGameFromEvent(props.event, game.game)"
@@ -51,12 +51,12 @@
                       <ul>
                         <li
                           v-for="user in game.players"
-                          :key="user"
+                          :key="user.id"
                         >
-                          <span class="mr-2">{{ user }}</span>
+                          <span class="mr-2">{{ user.username }}</span>
                           <a
-                            v-if="!props.readOnly && user === userStore.username"
-                            @click="eventStore.removeUserFromGame(props.event, userStore.username, game)"
+                            v-if="!props.readOnly && user.id === userStore.user.id"
+                            @click="eventStore.removeUserFromGame(props.event, userStore.user, game)"
                           >
                             <FontAwesomeIcon
                               class="is-small"
@@ -72,8 +72,8 @@
                         >
                           <span class="mr-2 has-text-grey-light">Free seat</span>
                           <a
-                            v-if="!userInGame(userStore.username, game)"
-                            @click="eventStore.addUserToGame(props.event, userStore.username, game)"
+                            v-if="!userInGame(userStore.user, game)"
+                            @click="eventStore.addUserToGame(props.event, userStore.user, game)"
                           >
                             <FontAwesomeIcon
                               class="is-small"
@@ -118,6 +118,7 @@ import NewGameDropdown from "../NewGameButton.vue";
 import GameSelectModal from "./GameSelectModal.vue";
 import {useGameStore} from "../../stores/GameStore";
 import Game from "../../models/Game";
+import User from "../../models/User";
 
 const userStore = useUserStore()
 const eventStore = useEventStore()
@@ -135,7 +136,7 @@ defineEmits<{
 
 const newGameSelectionShown = ref<boolean>(false)
 
-const userInGame = (username: string, game: PlayingGame): boolean => {
+const userInGame = (username: User, game: PlayingGame): boolean => {
   return game.players.includes(username)
 }
 
@@ -145,8 +146,8 @@ function toggleNewGameSelection() {
 
 function addGameToEvent(game: Game) {
   newGameSelectionShown.value = false
-  const newGame = eventStore.addGameToEvent(props.event, game, userStore.username)
-  eventStore.addUserToGame(props.event, userStore.username, newGame)
+  const newGame = eventStore.addGameToEvent(props.event, game, userStore.user)
+  eventStore.addUserToGame(props.event, userStore.user, newGame)
 }
 </script>
 
