@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1 class="is-uppercase has-text-centered is-size-1 mb-4">
-      Brettbuttler
+      Brettbutler
     </h1>
     <ExplanationText class="mb-2"/>
   </div>
@@ -58,10 +58,10 @@
     </div>
   </div>
   <EventDetailsModal
-    v-if="showDetails"
-    :event="modalEvent"
-    :read-only="modalEventReadOnly"
-    @close="closeModal"
+      v-if="showDetails"
+      :event="modalEvent"
+      :read-only="modalEventReadOnly"
+      @close="closeModal"
   />
   <EventEditModal
     v-if="showEdit"
@@ -80,32 +80,34 @@
 <script setup lang="ts">
 import EventCard from '../components/EventCard.vue'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {computed, onMounted, ref} from "vue";
-import Event, {createEmptyEvent} from "../models/Event";
+import {computed, onMounted, Ref, ref} from "vue";
 import EventEditModal from "../components/modals/EventEditModal.vue";
 import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
 import {useEventStore} from "../stores/EventStore";
 import {useUserStore} from "../stores/UserStore";
 import UserPromptModal from "../components/modals/UserPromptModal.vue";
 import ExplanationText from "../components/ExplanationText.vue";
-import User from "../models/User";
-import {useGameStore} from "../stores/GameStore";
 
 const eventStore = useEventStore()
-const gamesStore = useGameStore()
 const userStore = useUserStore()
 
-const now = new Date()
-const events = computed<Event[]>(() => eventStore.events)
-const pastEvents = computed<Event[]>(() => events.value.filter((event: Event) => event.date < now))
-const activeEvents = computed<Event[]>(() => events.value.filter((event: Event) => event.date >= now))
+const today = getStartOfDay()
+const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today))
+const activeEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date >= today))
 
 onMounted(() => {
-  gamesStore.updateList()
   eventStore.updateList()
 })
 
-const modalEvent = ref<Event>(activeEvents.value[0])
+function getStartOfDay() {
+  {
+  }
+  const now = new Date()
+  now.setHours(0, 0, 0)
+  return now
+}
+
+const modalEvent: Ref<Event | null> = ref<Event>(null)
 const modalEventReadOnly = ref<boolean>(false)
 const showDetails = ref<boolean>(false)
 const showEdit = ref<boolean>(false)
@@ -121,14 +123,10 @@ const openDetailModal = (event: Event, readOnly: boolean) => {
   }
 }
 
-const acceptUserPrompt = (user: User) => {
-  userStore.setUser(user)
-    .then(() => {
-      showUserPrompt.value = false
-      showDetails.value = true
-      return
-    })
-    .catch(() => console.error("Error on user retrieval"))
+const acceptUserPrompt = (username: string) => {
+  userStore.setUser(username)
+  showUserPrompt.value = false
+  showDetails.value = true
 }
 
 const closeModal = () => {
@@ -142,7 +140,7 @@ const openEditModal = (event: Event | null) => {
   if (event !== null) {
     modalEvent.value = event
   } else {
-    modalEvent.value = createEmptyEvent()
+    modalEvent.value = undefined
   }
   showEdit.value = true
 }
