@@ -11,7 +11,7 @@
         v-if="!isNew"
         class="card-header-title is-size-4"
       >
-        Edit {{ event.name }}
+        Edit {{ event.date }}
       </h4>
     </template>
     <template #content>
