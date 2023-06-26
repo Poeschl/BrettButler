@@ -55,8 +55,9 @@ watch(valid, (newValue: boolean, oldValue: boolean) => {
 
 const updateValue = () => {
   const patternRegex = /(\d{2})\.(\d{2})\.(\d{4}) (\d{2}):(\d{2})/;
-  const dateArray: number[] = patternRegex.exec(datePicker.value?.value() ?? "")
-      .map(value => value as unknown as number) ?? []
+  // @ts-ignore
+  const dateArray: number[] = patternRegex?.exec(datePicker.value?.value() ?? "")
+    .map(value => value as unknown as number) ?? []
   const newValue = new Date(dateArray[3], dateArray [2] - 1, dateArray[1], dateArray[4], dateArray[5])
   value.value = newValue
   emit('update:value', newValue)
@@ -75,7 +76,9 @@ onMounted(() => {
     enableYearSwitch: false,
     minuteSteps: 15
   })[0]
+  // @ts-ignore
   datePicker.value?.value(value.value)
+  // @ts-ignore
   datePicker.value?.on('save', () => updateValue())
 })
 </script>

@@ -3,12 +3,12 @@
     <label class="label">{{ props.label }}</label>
     <div class="control">
       <textarea
-        class="textarea is-small"
-        :maxlength="props.maxlength"
-        :placeholder="props.placeholder"
-        :value="value"
-        :class="{ 'is-success': valid }"
-        @input="updateValue($event.target.value)"
+          class="textarea is-small"
+          :maxlength="props.maxLength"
+          :placeholder="props.placeholder"
+          :value="value"
+          :class="{ 'is-success': valid }"
+          @input="updateValue(($event.target as HTMLInputElement).value)"
       />
     </div>
     <p

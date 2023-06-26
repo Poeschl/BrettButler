@@ -3,13 +3,13 @@
     <label class="label">{{ props.label }}</label>
     <div class="control">
       <input
-        class="input"
-        type="text"
-        :maxlength="props.maxLength"
-        :placeholder="props.placeholder"
-        :value="value"
-        :class="{ 'is-success': valid }"
-        @input="updateValue($event.target.value)"
+          class="input"
+          type="text"
+          :maxlength="props.maxLength"
+          :placeholder="props.placeholder"
+          :value="value"
+          :class="{ 'is-success': valid }"
+          @input="updateValue(($event.target as HTMLInputElement).value)"
       >
     </div>
     <p

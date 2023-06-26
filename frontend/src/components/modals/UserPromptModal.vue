@@ -8,15 +8,15 @@
 
     <template #content>
       <TextInput
-        v-model:value="user.username"
-        help="This name will be displayed on the website when you participate on a game or bring one."
-        label="Your display name"
-        placeholder="Type a human readable name"
-        max-length="25"
-        :validate="(value) => {
+          v-model:value="user.username"
+          help="This name will be displayed on the website when you participate on a game or bring one."
+          label="Your display name"
+          placeholder="Type a human readable name"
+          :max-length="25"
+          :validate="(value) => {
           return value.length > 3
         }"
-        @keydown.enter="$emit('username:save', user)"
+          @keydown.enter="$emit('username:save', user)"
       />
     </template>
     <template #footer>

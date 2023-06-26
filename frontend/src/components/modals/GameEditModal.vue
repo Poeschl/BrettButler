@@ -32,8 +32,7 @@
         placeholder="Type the number of players, eg. 2-4 or 4"
         :max-length="10"
         :validate="(value) => {
-          const regex = RegExp('^[1-9][0-9]*(-[0-9]+)?$')
-          return regex.test(value)
+          return  RegExp('^[1-9][0-9]*(-[0-9]+)?$').test(value)
         }"
       />
       <TextInput
@@ -43,8 +42,7 @@
         placeholder="The playtime in minutes"
         :max-length="10"
         :validate="(value) => {
-          const regex = RegExp('^[1-9][0-9]*$')
-          return regex.test(value)
+          return RegExp('^[1-9][0-9]*$').test(value)
         }"
       />
       <TextBoxInput
@@ -64,8 +62,7 @@
         placeholder="Insert an link to a page with more information about the game"
         :max-length="200"
         :validate="(value) => {
-          const regex = RegExp('^https://.*')
-          return regex.test(value)
+          return RegExp('^https://.*').test(value)
         }"
       />
     </template>
