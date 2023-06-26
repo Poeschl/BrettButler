@@ -26,8 +26,8 @@
         <p>
           Source is available on
           <a
-            target="_blank"
-            href="https://github.com/Poeschl/BrettButtler"
+              target="_blank"
+              href="https://github.com/Poeschl/BrettButler"
           >
             GitHub
           </a>

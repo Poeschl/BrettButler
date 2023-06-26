@@ -7,7 +7,7 @@ plugins {
     id "org.jetbrains.kotlin.kapt" version "1.8.21"
 }
 
-group = 'xyz.poeschl.brettbuttler'
+group = 'xyz.poeschl.brettbutler'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 

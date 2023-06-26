@@ -5,8 +5,8 @@ import org.springframework.boot.runApplication
 
 
 @SpringBootApplication
-class BrettButtlerApplication
+class BrettButlerApplication
 
 fun main(args: Array<String>) {
-    runApplication<BrettButtlerApplication>(*args)
+  runApplication<BrettButlerApplication>(*args)
 }
