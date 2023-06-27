@@ -23,6 +23,7 @@ class UserController(private val userDtoMapper: UserDtoMapper,
     }
 
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Transactional
     fun saveUser(@RequestBody newUserDto: NewUserDto): UserDto {
         val userCheck = userRepository.findByUsername(newUserDto.username)
         val newUser = if (userCheck.isEmpty) {

@@ -31,8 +31,8 @@
                     </p>
                     <div v-if="!props.readOnly && game.owner.id === userStore.user.id">
                       <a
-                        title="Remove Game for this event"
-                        @click="eventStore.removeGameFromEvent(currentEvent, game.game)"
+                          title="Remove Game for this event"
+                          @click="removeGame(game)"
                       >
                         <FontAwesomeIcon
                           class="is-small"
@@ -172,6 +172,15 @@ function removeUserFromGame(game: PlayingGame) {
       return updatedEvent
     })
     .catch(() => console.error("Error on player removal"))
+}
+
+function removeGame(game: PlayingGame) {
+  eventStore.removeGameFromEvent(currentEvent.value, game)
+    .then((updatedEvent: Event) => {
+      currentEvent.value = updatedEvent
+      return updatedEvent
+    })
+    .catch(() => console.error("Error on game removal"))
 }
 </script>
 

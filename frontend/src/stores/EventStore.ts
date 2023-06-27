@@ -77,8 +77,8 @@ export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('events
       })
   }
 
-  function removeGameFromEvent(event: Event, game: Game) {
-    eventService.removeGameFromEvent(event, game)
+  function removeGameFromEvent(event: Event, game: PlayingGame): Promise<Event | void> {
+    return eventService.removeGameFromEvent(event, game)
       .then(response => {
         updateList()
         return response

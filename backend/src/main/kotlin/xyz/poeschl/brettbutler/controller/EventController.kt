@@ -34,6 +34,7 @@ class EventController(
   }
 
   @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @Transactional
   fun save(@RequestBody input: NewEventDto): EventDto {
     val saved = eventRepository.save(eventMapper.fromNewDto(input))
 
@@ -41,11 +42,13 @@ class EventController(
   }
 
   @DeleteMapping("/{id}")
+  @Transactional
   fun delete(@PathVariable id: Long) {
     eventRepository.deleteById(id)
   }
 
   @PostMapping("/{eventId}/games", consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @Transactional
   fun addGame(@PathVariable eventId: Long, @RequestBody newGame: NewPlayingGameDto): EventDto {
     val event = eventRepository.findById(eventId)
       .orElseThrow { NotFoundException("Event not found") }
@@ -59,6 +62,7 @@ class EventController(
   }
 
   @DeleteMapping("/{eventId}/games/{gameId}", produces = [MediaType.APPLICATION_JSON_VALUE])
+  @Transactional
   fun removeGame(@PathVariable eventId: Long, @PathVariable gameId: Long): EventDto {
     val event = eventRepository.findById(eventId)
       .orElseThrow { NotFoundException("Event not found") }
@@ -67,10 +71,12 @@ class EventController(
       playingGameRepository.deleteById(it.id!!)
       playingGameRepository.flush()
     }
-    return eventMapper.toDto(eventRepository.findById(event.id!!).get())
+    event.games.removeIf { it.id == gameId }
+    return eventMapper.toDto(event)
   }
 
   @PostMapping("/{eventId}/games/{gameId}/players", consumes = [MediaType.APPLICATION_JSON_VALUE])
+  @Transactional
   fun addPlayer(@PathVariable eventId: Long, @PathVariable gameId: Long, @RequestBody newPlayer: NewPlayerDto): EventDto {
     val event = eventRepository.findById(eventId)
       .orElseThrow { NotFoundException("Event not found") }
@@ -85,6 +91,7 @@ class EventController(
   }
 
   @DeleteMapping("/{eventId}/games/{gameId}/players/{userId}", produces = [MediaType.APPLICATION_JSON_VALUE])
+  @Transactional
   fun removePlayer(@PathVariable eventId: Long, @PathVariable gameId: Long, @PathVariable userId: Long): EventDto {
     val event = eventRepository.findById(eventId)
       .orElseThrow { NotFoundException("Event not found") }

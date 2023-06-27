@@ -30,14 +30,15 @@ class GameController(private val gameRepository: GameRepository,
                 .orElseThrow { NotFoundException() }
     }
 
-    //TODO: Split in POST and PUT
     @PostMapping(consumes = [MediaType.APPLICATION_JSON_VALUE], produces = [MediaType.APPLICATION_JSON_VALUE])
+    @Transactional
     fun save(@RequestBody input: GameDto): GameDto {
         val saved = gameRepository.save(gameMapper.fromDto(input))
         return gameMapper.toDto(saved)
     }
 
-    @DeleteMapping("/{id}")
+  @DeleteMapping("/{id}")
+  @Transactional
     fun delete(@PathVariable id: Long) {
         gameRepository.deleteById(id)
     }

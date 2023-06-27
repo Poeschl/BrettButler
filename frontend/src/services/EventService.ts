@@ -56,7 +56,7 @@ export default class EventService {
       })
   }
 
-  removeGameFromEvent = (event: Event, game: Game): Promise<Event> => {
+  removeGameFromEvent = (event: Event, game: PlayingGame): Promise<Event> => {
     return axios.delete(`${this.baseEventUrl}/${event.id}/games/${game.id}`)
       .then(response => {
         const event: Event = response.data
