@@ -87,6 +87,8 @@ import {useEventStore} from "../stores/EventStore";
 import {useUserStore} from "../stores/UserStore";
 import UserPromptModal from "../components/modals/UserPromptModal.vue";
 import ExplanationText from "../components/ExplanationText.vue";
+import Event, {createEmptyEvent} from "../models/Event"
+import User from "../models/User";
 
 const eventStore = useEventStore()
 const userStore = useUserStore()
@@ -100,14 +102,12 @@ onMounted(() => {
 })
 
 function getStartOfDay() {
-  {
-  }
   const now = new Date()
   now.setHours(0, 0, 0)
   return now
 }
 
-const modalEvent: Ref<Event | null> = ref<Event>(null)
+const modalEvent: Ref<Event> = ref<Event>(createEmptyEvent())
 const modalEventReadOnly = ref<boolean>(false)
 const showDetails = ref<boolean>(false)
 const showEdit = ref<boolean>(false)
@@ -123,8 +123,8 @@ const openDetailModal = (event: Event, readOnly: boolean) => {
   }
 }
 
-const acceptUserPrompt = (username: string) => {
-  userStore.setUser(username)
+const acceptUserPrompt = (user: User) => {
+  userStore.setUser(user)
   showUserPrompt.value = false
   showDetails.value = true
 }
@@ -140,7 +140,7 @@ const openEditModal = (event: Event | null) => {
   if (event !== null) {
     modalEvent.value = event
   } else {
-    modalEvent.value = undefined
+    modalEvent.value = createEmptyEvent()
   }
   showEdit.value = true
 }
