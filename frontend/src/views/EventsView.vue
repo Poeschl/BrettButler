@@ -89,15 +89,18 @@ import UserPromptModal from "../components/modals/UserPromptModal.vue";
 import ExplanationText from "../components/ExplanationText.vue";
 import Event, {createEmptyEvent} from "../models/Event"
 import User from "../models/User";
+import {useGameStore} from "../stores/GameStore";
 
 const eventStore = useEventStore()
 const userStore = useUserStore()
+const gamesStore = useGameStore()
 
 const today = getStartOfDay()
 const pastEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date < today))
 const activeEvents = computed<Event[]>(() => eventStore.events.filter((event: Event) => event.date >= today))
 
 onMounted(() => {
+  gamesStore.updateList()
   eventStore.updateList()
 })
 
