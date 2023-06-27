@@ -2,8 +2,8 @@
   <div class="columns">
     <div class="column">
       <p class="box has-text-centered">
-        Brettbuttler is a software to makes it easier for you to plan the next board game event.
-        Especially when there are several board games and more people then player seats.
+        Brettbutler is a software to makes it easier for you to plan the next board game event.
+        Especially when there are several board games and more people than player seats.
       </p>
     </div>
     <div class="column">

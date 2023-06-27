@@ -13,7 +13,7 @@
             class="is-size-4 mr-3"
             icon="fa-solid fa-dice"
           />
-          <span class="is-uppercase">BrettButtler</span>
+          <span class="is-uppercase">BrettButler</span>
         </a>
         <a
           role="button"
