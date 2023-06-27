@@ -74,7 +74,7 @@ onMounted(() => {
     validateLabel: "Select",
     showClearButton: false,
     enableYearSwitch: false,
-    minuteSteps: 15
+    minuteSteps: 1
   })[0]
   // @ts-ignore
   datePicker.value?.value(value.value)
