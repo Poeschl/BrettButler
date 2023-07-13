@@ -35,13 +35,13 @@
           return  RegExp('^[1-9][0-9]*(-[0-9]+)?$').test(value)
         }"
       />
-      <TextInput
-        v-model:value="game.playtimeInMinutes"
-        help="Minutes"
-        label="Estimated playtime"
-        placeholder="The playtime in minutes"
-        :max-length="10"
-        :validate="(value) => {
+      <NumberInput
+          v-model:value="game.playtimeInMinutes"
+          help="Minutes"
+          label="Estimated playtime"
+          placeholder="The playtime in minutes"
+          :max-length="10"
+          :validate="(value) => {
           return RegExp('^[1-9][0-9]*$').test(value)
         }"
       />
@@ -84,6 +84,7 @@ import EditModalFooter from "../EditModalFooter.vue";
 import TextInput from "../forms/TextInput.vue";
 import TextBoxInput from "../forms/TextBoxInput.vue";
 import GeneralModal from "./BaseEditModal.vue";
+import NumberInput from "../forms/NumberInput.vue";
 
 const props = defineProps<{
   game: Game
