@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {createPinia} from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
+import Plausible from "plausible-tracker";
 
 const app = createApp(App)
 
@@ -28,5 +29,15 @@ app.use(router)
 const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
+
+if (import.meta.env.VITE_PLAUSIBLE_DOMAIN !== undefined) {
+  const plausible = Plausible({
+    domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
+    hashMode: true,
+    apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST
+  })
+  plausible.enableAutoPageviews()
+  app.provide("plausible", plausible)
+}
 
 app.mount('#app')

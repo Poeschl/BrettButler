@@ -18,6 +18,14 @@ For an easy setup, a docker-compose file is provided in the `deploy` folder.
 It is just a basic setup with traefik as reverse proxy on `http`.
 Depending on the environment a certificate for TLS is recommended.
 
+### Plausible tracking
+
+If configured the application can be monitored with [Plausible](https://plausible.io/).
+
+To enable this set the environment variable `VITE_PLAUSIBLE_DOMAIN`
+and if you are running on a self-hosted instance `VITE_PLAUSIBLE_API_HOST`.
+An example is shown in the deploy docker-compose.
+
 ## Note
 
 This software will get no versioning and lives on the bloody main branch.

@@ -47,6 +47,9 @@ services:
   frontend:
     image: "ghcr.io/poeschl/brettbutler:frontend"
     restart: unless-stopped
+    #    environment:
+    #      PLAUSIBLE_DOMAIN: <your domain>
+    #      PLAUSIBLE_API_HOST: https://plausible.io
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.brettbutler-frontend.rule=PathPrefix(`/`)'
