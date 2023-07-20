@@ -1,13 +1,14 @@
-import {defineStore, StoreDefinition} from "pinia";
-import {computed, ComputedRef, Ref, ref} from "vue";
-import UserService from "../services/UserService";
-import User, {createEmptyUser} from "../models/User";
+import {defineStore} from "pinia";
+import {computed, ref} from "vue";
+import UserService from "@/services/UserService";
+import type User from "@/models/User";
+import {createEmptyUser} from "@/models/User";
 
 const userService = new UserService()
-export const useUserStore: StoreDefinition<"userStore"> = defineStore('userStore', () => {
-  const user: Ref<User | undefined> = ref()
+export const useUserStore = defineStore('userStore', () => {
+  const user = ref<User | undefined>()
 
-  const isUserDefined: ComputedRef<boolean> = computed(() => {
+  const isUserDefined = computed<boolean>(() => {
     return user.value !== undefined
   })
 

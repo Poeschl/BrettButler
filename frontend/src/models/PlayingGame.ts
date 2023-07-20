@@ -1,5 +1,7 @@
-import Game, {createEmptyGame} from "./Game";
-import User, {createEmptyUser} from "./User";
+import type Game from "./Game";
+import {createEmptyGame} from "./Game";
+import type User from "./User";
+import {createEmptyUser} from "./User";
 
 export default interface PlayingGame {
   readonly id: number | undefined,

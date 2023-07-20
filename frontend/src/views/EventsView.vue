@@ -78,18 +78,19 @@
 </template>
 
 <script setup lang="ts">
-import EventCard from '../components/EventCard.vue'
+import EventCard from '@/components/EventCard.vue'
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {computed, onMounted, Ref, ref} from "vue";
-import EventEditModal from "../components/modals/EventEditModal.vue";
-import EventDetailsModal from "../components/modals/EventDetailsModal.vue";
-import {useEventStore} from "../stores/EventStore";
-import {useUserStore} from "../stores/UserStore";
-import UserPromptModal from "../components/modals/UserPromptModal.vue";
-import ExplanationText from "../components/ExplanationText.vue";
-import Event, {createEmptyEvent} from "../models/Event"
-import User from "../models/User";
-import {useGameStore} from "../stores/GameStore";
+import {computed, onMounted, ref} from "vue";
+import EventEditModal from "@/components/modals/EventEditModal.vue";
+import EventDetailsModal from "@/components/modals/EventDetailsModal.vue";
+import {useEventStore} from "@/stores/EventStore";
+import {useUserStore} from "@/stores/UserStore";
+import UserPromptModal from "@/components/modals/UserPromptModal.vue";
+import ExplanationText from "@/components/ExplanationText.vue";
+import type Event from "@/models/Event"
+import {createEmptyEvent} from "@/models/Event"
+import type User from "@/models/User";
+import {useGameStore} from "@/stores/GameStore";
 
 const eventStore = useEventStore()
 const userStore = useUserStore()
@@ -110,7 +111,7 @@ function getStartOfDay() {
   return now
 }
 
-const modalEvent: Ref<Event> = ref<Event>(createEmptyEvent())
+const modalEvent = ref<Event>(createEmptyEvent())
 const modalEventReadOnly = ref<boolean>(false)
 const showDetails = ref<boolean>(false)
 const showEdit = ref<boolean>(false)

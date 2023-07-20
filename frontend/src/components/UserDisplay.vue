@@ -4,7 +4,7 @@
       class="mr-2"
       icon="fa-solid fa-user"
     />
-    <span>{{ userStore.user.username }}</span>
+    <span>{{ userStore.user?.username }}</span>
     <a
       @click="clearUser"
       class="mr-1 ml-2 has-text-grey-light"
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {useUserStore} from "../stores/UserStore";
+import {useUserStore} from "@/stores/UserStore";
 
 const userStore = useUserStore()
 

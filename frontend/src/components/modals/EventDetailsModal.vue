@@ -29,14 +29,14 @@
                     <p class="">
                       Added by {{ game.owner.username }}
                     </p>
-                    <div v-if="!props.readOnly && game.owner.id === userStore.user.id">
+                    <div v-if="!props.readOnly && game.owner.id === userStore.user!.id">
                       <a
                           title="Remove Game for this event"
                           @click="removeGame(game)"
                       >
                         <FontAwesomeIcon
-                          class="is-small"
-                          icon="fa-solid fa-square-minus"
+                            class="is-small"
+                            icon="fa-solid fa-square-minus"
                         />
                       </a>
                     </div>
@@ -55,8 +55,8 @@
                         >
                           <span class="mr-2">{{ user.username }}</span>
                           <a
-                            v-if="!props.readOnly && user.id === userStore.user.id"
-                            @click="removeUserFromGame(game)"
+                              v-if="!props.readOnly && user.id === userStore.user!.id"
+                              @click="removeUserFromGame(game)"
                           >
                             <FontAwesomeIcon
                               class="is-small"
@@ -72,8 +72,8 @@
                         >
                           <span class="mr-2 has-text-grey-light">Free seat</span>
                           <a
-                            v-if="!userInGame(userStore.user, game)"
-                            @click="addUserToGame(game)"
+                              v-if="!userInGame(userStore.user!, game)"
+                              @click="addUserToGame(game)"
                           >
                             <FontAwesomeIcon
                               class="is-small"
@@ -108,17 +108,17 @@
 <script setup lang="ts">
 import BaseDetailModal from "./BaseDetailModal.vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {useUserStore} from "../../stores/UserStore";
-import PlayingGame from "../../models/PlayingGame";
+import {useUserStore} from "@/stores/UserStore";
+import type PlayingGame from "@/models/PlayingGame";
 import {inject, ref} from "vue";
-import GameService from "../../services/GameService";
-import {useEventStore} from "../../stores/EventStore";
-import NewGameDropdown from "../NewGameButton.vue";
+import GameService from "@/services/GameService";
+import {useEventStore} from "@/stores/EventStore";
+import NewGameDropdown from "@/components/NewGameButton.vue";
 import GameSelectModal from "./GameSelectModal.vue";
-import {useGameStore} from "../../stores/GameStore";
-import Game from "../../models/Game";
-import User from "../../models/User";
-import Event from "../../models/Event";
+import {useGameStore} from "@/stores/GameStore";
+import type Game from "@/models/Game";
+import type User from "@/models/User";
+import type Event from "@/models/Event";
 
 const userStore = useUserStore()
 const eventStore = useEventStore()
@@ -148,38 +148,38 @@ function toggleNewGameSelection() {
 
 function addGameToEvent(newGame: Game) {
   newGameSelectionShown.value = false
-  eventStore.addGameToEvent(currentEvent.value, newGame, userStore.user)
-    .then((updatedEvent: Event) => {
-      currentEvent.value = (updatedEvent as Event)
-      return updatedEvent
-    })
-    .catch(() => console.error("Error on user event addition"))
+  eventStore.addGameToEvent(currentEvent.value, newGame, userStore.user!)
+      .then((updatedEvent) => {
+        currentEvent.value = (updatedEvent as Event)
+        return updatedEvent
+      })
+      .catch(() => console.error("Error on user event addition"))
 }
 
 function addUserToGame(game: PlayingGame) {
-  eventStore.addUserToGame(currentEvent.value, userStore.user, game)
-    .then((updatedEvent: Event) => {
-      currentEvent.value = updatedEvent
-      return updatedEvent
-    })
-    .catch(() => console.error("Error on player addition"))
+  eventStore.addUserToGame(currentEvent.value, userStore.user!, game)
+      .then((updatedEvent) => {
+        currentEvent.value = (updatedEvent as Event)
+        return updatedEvent
+      })
+      .catch(() => console.error("Error on player addition"))
 }
 
 function removeUserFromGame(game: PlayingGame) {
-  eventStore.removeUserFromGame(currentEvent.value, userStore.user, game)
-    .then((updatedEvent: Event) => {
-      currentEvent.value = updatedEvent
-      return updatedEvent
-    })
-    .catch(() => console.error("Error on player removal"))
+  eventStore.removeUserFromGame(currentEvent.value, userStore.user!, game)
+      .then((updatedEvent) => {
+        currentEvent.value = (updatedEvent as Event)
+        return updatedEvent
+      })
+      .catch(() => console.error("Error on player removal"))
 }
 
 function removeGame(game: PlayingGame) {
   eventStore.removeGameFromEvent(currentEvent.value, game)
-    .then((updatedEvent: Event) => {
-      currentEvent.value = updatedEvent
-      return updatedEvent
-    })
+      .then((updatedEvent) => {
+        currentEvent.value = (updatedEvent as Event)
+        return updatedEvent
+      })
     .catch(() => console.error("Error on game removal"))
 }
 </script>

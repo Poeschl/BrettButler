@@ -1,4 +1,4 @@
-import PlayingGame from "./PlayingGame";
+import type PlayingGame from "./PlayingGame";
 
 export default interface Event {
   readonly id: number | undefined

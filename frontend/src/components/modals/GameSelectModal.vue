@@ -21,7 +21,7 @@
 
 <script setup lang="ts">
 import BaseDetailModal from "./BaseDetailModal.vue";
-import Game from "../../models/Game";
+import type Game from "@/models/Game";
 
 const props = defineProps<{
   games: Game[]

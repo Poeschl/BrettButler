@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import Event from "../models/Event";
+import type Event from "@/models/Event";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const props = defineProps<{

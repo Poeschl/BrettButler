@@ -79,12 +79,12 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import Game from "../../models/Game";
-import EditModalFooter from "../EditModalFooter.vue";
-import TextInput from "../forms/TextInput.vue";
-import TextBoxInput from "../forms/TextBoxInput.vue";
+import type Game from "@/models/Game";
+import EditModalFooter from "@/components/EditModalFooter.vue";
+import TextInput from "@/components/forms/TextInput.vue";
+import TextBoxInput from "@/components/forms/TextBoxInput.vue";
 import GeneralModal from "./BaseEditModal.vue";
-import NumberInput from "../forms/NumberInput.vue";
+import NumberInput from "@/components/forms/NumberInput.vue";
 
 const props = defineProps<{
   game: Game

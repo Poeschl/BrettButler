@@ -30,11 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import EditModalFooter from "../EditModalFooter.vue";
+import EditModalFooter from "@/components/EditModalFooter.vue";
 import BaseEditModal from "./BaseEditModal.vue";
-import TextInput from "../forms/TextInput.vue";
+import TextInput from "@/components/forms/TextInput.vue";
 import {ref} from "vue";
-import User, {createEmptyUser} from "../../models/User";
+import type User from "@/models/User";
+import {createEmptyUser} from "@/models/User";
 
 const user = ref<User>(createEmptyUser())
 

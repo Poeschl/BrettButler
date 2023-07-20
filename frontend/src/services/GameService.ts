@@ -1,4 +1,4 @@
-import Game from "../models/Game";
+import type Game from "@/models/Game";
 import axios from "axios";
 
 export default class GameService {

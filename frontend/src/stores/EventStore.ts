@@ -1,13 +1,13 @@
-import {defineStore, StoreDefinition} from "pinia";
-import Event from "../models/Event";
-import EventService from "../services/EventService";
+import {defineStore} from "pinia";
+import type Event from "@/models/Event";
+import EventService from "@/services/EventService";
 import {ref} from "vue";
-import PlayingGame from "../models/PlayingGame";
-import Game from "../models/Game";
-import User from "../models/User";
+import type PlayingGame from "@/models/PlayingGame";
+import type Game from "@/models/Game";
+import type User from "@/models/User";
 
 const eventService = new EventService()
-export const useEventStore: StoreDefinition<"eventsStore"> = defineStore('eventsStore', () => {
+export const useEventStore = defineStore('eventsStore', () => {
   const events = ref<Event[]>([])
 
   function updateList() {

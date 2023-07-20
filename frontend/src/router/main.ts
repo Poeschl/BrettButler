@@ -1,6 +1,7 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
-import GamesView from "../views/GamesView.vue";
-import EventsView from "../views/EventsView.vue";
+
+const GamesView = () => import("@/views/GamesView.vue");
+const EventsView = () => import("@/views/EventsView.vue");
 
 export default createRouter({
   history: createWebHashHistory(),

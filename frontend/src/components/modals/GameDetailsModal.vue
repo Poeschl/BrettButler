@@ -30,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import Game from "../../models/Game";
+import type Game from "@/models/Game";
 import BaseDetailModal from "./BaseDetailModal.vue";
 
 const props = defineProps<{

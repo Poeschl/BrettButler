@@ -38,9 +38,9 @@
 
 <script setup lang="ts">
 import {computed, ref} from "vue";
-import Event from "../../models/Event";
-import EditModalFooter from "../EditModalFooter.vue";
-import DateInput from "../forms/DateInput.vue";
+import type Event from "@/models/Event";
+import EditModalFooter from "@/components/EditModalFooter.vue";
+import DateInput from "@/components/forms/DateInput.vue";
 import BaseEditModal from "./BaseEditModal.vue";
 
 const props = defineProps<{

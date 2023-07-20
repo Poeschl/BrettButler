@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import {computed, onMounted, Ref, ref, watch} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import bulmaCalendar from "bulma-calendar";
 
 const props = defineProps<{
@@ -38,7 +38,7 @@ const value = ref(props.value)
 const datePickerInput = ref<HTMLInputElement>()
 const datePicker = ref<bulmaCalendar | undefined>()
 
-const valid: Ref<boolean> = computed(() => {
+const valid = computed<boolean>(() => {
   return props.validate(value.value)
 })
 

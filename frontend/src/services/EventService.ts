@@ -1,8 +1,8 @@
-import type Event from '../models/Event'
-import PlayingGame from "../models/PlayingGame";
-import Game from "../models/Game";
+import type Event from '@/models/Event'
+import type PlayingGame from "@/models/PlayingGame";
+import type Game from "@/models/Game";
 import axios from "axios";
-import User from "../models/User";
+import type User from "@/models/User";
 
 export default class EventService {
 

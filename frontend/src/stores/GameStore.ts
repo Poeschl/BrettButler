@@ -1,10 +1,10 @@
-import {defineStore, StoreDefinition} from "pinia";
-import Game from "../models/Game";
-import GameService from "../services/GameService";
+import {defineStore} from "pinia";
+import type Game from "@/models/Game";
+import GameService from "@/services/GameService";
 import {ref} from "vue";
 
 const gameService = new GameService()
-export const useGameStore: StoreDefinition<"gamesStore"> = defineStore('gamesStore', () => {
+export const useGameStore = defineStore('gamesStore', () => {
   const games = ref<Game[]>([])
 
   function updateList() {

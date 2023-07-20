@@ -46,7 +46,7 @@
 
 <script setup lang="ts">
 
-import Game from "../models/Game";
+import type Game from "@/models/Game";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
 
 const props = defineProps<{

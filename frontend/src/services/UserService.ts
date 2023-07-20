@@ -1,5 +1,5 @@
 import axios from "axios";
-import User from "../models/User";
+import type User from "@/models/User";
 
 export default class UserService {
 

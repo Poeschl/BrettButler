@@ -49,18 +49,19 @@
 </template>
 
 <script setup lang="ts">
-import GameCard from '../components/GameCard.vue'
-import GameDetailsModal from "../components/modals/GameDetailsModal.vue";
-import Game, {createEmptyGame} from "../models/Game";
-import {computed, onMounted, Ref, ref} from "vue";
+import GameCard from '@/components/GameCard.vue'
+import GameDetailsModal from "@/components/modals/GameDetailsModal.vue";
+import type Game from "@/models/Game";
+import {createEmptyGame} from "@/models/Game";
+import {computed, onMounted, ref} from "vue";
 import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import GameEditModal from "../components/modals/GameEditModal.vue";
-import {useGameStore} from "../stores/GameStore";
+import GameEditModal from "@/components/modals/GameEditModal.vue";
+import {useGameStore} from "@/stores/GameStore";
 
 const gamesStore = useGameStore()
 const gameList = computed<Game[]>(() => gamesStore.games)
 
-const modalGame: Ref<Game> = ref<Game>(createEmptyGame())
+const modalGame = ref<Game>(createEmptyGame())
 const showDetails = ref(false)
 const showEdit = ref(false)
 

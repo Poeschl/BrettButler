@@ -1,4 +1,4 @@
-import {App as Application, createApp} from 'vue'
+import {createApp} from 'vue'
 import './assets/main.scss'
 import App from './App.vue'
 import router from "./router/main";
@@ -15,17 +15,17 @@ import {
   faUserMinus,
   faUserPlus
 } from "@fortawesome/free-solid-svg-icons";
-import {createPinia, Pinia} from "pinia";
+import {createPinia} from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 
-const app: Application<Element> = createApp(App)
+const app = createApp(App)
 
 library.add(faPenToSquare, faDice, faPlus, faUserPlus, faUserMinus, faSquareMinus, faUser, faRightFromBracket, faAngleDown)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
 
 app.use(router)
 
-const pinia: Pinia = createPinia()
+const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
 
