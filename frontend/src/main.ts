@@ -18,8 +18,12 @@ import {
 import {createPinia} from "pinia";
 import piniaPluginPersistedState from "pinia-plugin-persistedstate"
 import Plausible from "plausible-tracker";
+import {RuntimeConfigurationPlugin} from "./plugins/RuntimeConfigurationPlugin";
 
 const app = createApp(App)
+
+const runtimeConfigPlugin = RuntimeConfigurationPlugin
+app.use(runtimeConfigPlugin)
 
 library.add(faPenToSquare, faDice, faPlus, faUserPlus, faUserMinus, faSquareMinus, faUser, faRightFromBracket, faAngleDown)
 app.component('FontAwesomeIcon', FontAwesomeIcon)
@@ -30,14 +34,18 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
 
-if (import.meta.env.VITE_PLAUSIBLE_DOMAIN !== undefined) {
-  const plausible = Plausible({
-    domain: import.meta.env.VITE_PLAUSIBLE_DOMAIN,
-    hashMode: true,
-    apiHost: import.meta.env.VITE_PLAUSIBLE_API_HOST
+runtimeConfigPlugin.getConfig()
+  .then(runtimeConfig => {
+    if (runtimeConfig.plausibleDomain !== undefined) {
+      const plausible = Plausible({
+        domain: runtimeConfig.plausibleDomain,
+        hashMode: true,
+        apiHost: runtimeConfig.plausibleCustomApiHost
+      })
+      plausible.enableAutoPageviews()
+      app.provide("plausible", plausible)
+    }
   })
-  plausible.enableAutoPageviews()
-  app.provide("plausible", plausible)
-}
+
 
 app.mount('#app')
