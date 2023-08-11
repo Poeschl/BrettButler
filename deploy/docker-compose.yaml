@@ -32,14 +32,14 @@ services:
       - 'traefik.http.routers.dashboard.priority=20'
       - 'traefik.http.routers.dashboard.service=api@internal'
       - 'traefik.http.routers.dashboard.entrypoints=websecure'
-      - 'traefik.http.routers.dashboard.middlewares=google-auth,strip-prefix-traefik'
+      - 'traefik.http.routers.dashboard.middlewares=strip-prefix-traefik'
       - 'traefik.http.middlewares.strip-prefix-traefik.stripprefix.prefixes=/traefik'
 
       - 'traefik.http.routers.dashboard-redirect.rule=PathPrefix(`/traefik`)'
       - 'traefik.http.routers.dashboard-redirect.priority=10'
       - 'traefik.http.routers.dashboard-redirect.service=noop@internal'
       - 'traefik.http.routers.dashboard-redirect.entrypoints=websecure'
-      - 'traefik.http.routers.dashboard-redirect.middlewares=google-auth,dashboard-redirect'
+      - 'traefik.http.routers.dashboard-redirect.middlewares=dashboard-redirect'
       - 'traefik.http.middlewares.dashboard-redirect.redirectregex.regex=^(https://.*)/traefik.*'
       - 'traefik.http.middlewares.dashboard-redirect.redirectregex.replacement=$${1}/traefik/dashboard/'
 
