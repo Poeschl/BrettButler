@@ -3,12 +3,25 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      GH actions:
+        dependency-type: "production"
   - package-ecosystem: "gradle"
     directory: "/backend"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      gradle:
+        dependency-type: "production"
+      gradle dev:
+        dependency-type: "development"
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
+    groups:
+      npm:
+        dependency-type: "production"
+      npm dev:
+        dependency-type: "development"
