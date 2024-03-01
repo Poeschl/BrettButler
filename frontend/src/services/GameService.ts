@@ -1,9 +1,10 @@
 import type Game from "@/models/Game";
 import axios from "axios";
+import { Env } from "@/Env";
 
 export default class GameService {
 
-  private baseEventUrl = '/rest/games'
+  private baseEventUrl = Env.brettbutlerPathPrefix + '/rest/games'
 
   getAllGames = (): Promise<Game[]> => {
     return axios.get(this.baseEventUrl)

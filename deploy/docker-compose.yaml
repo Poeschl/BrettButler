@@ -50,6 +50,7 @@ services:
     #    environment:
     #      PLAUSIBLE_DOMAIN: <your domain>
     #      PLAUSIBLE_API_HOST: https://plausible.io
+    #      BRETTBUTLER_PATH_PREFIX: /brettbutler
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.brettbutler-frontend.rule=PathPrefix(`/`)'
@@ -63,6 +64,7 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/postgres
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: superSecret
+      #  BRETTBUTLER_PATH_PREFIX: /brettbutler
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.brettbutler-backend.rule=PathPrefix(`/rest`)'

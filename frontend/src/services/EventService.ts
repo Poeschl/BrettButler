@@ -3,10 +3,11 @@ import type PlayingGame from "@/models/PlayingGame";
 import type Game from "@/models/Game";
 import axios from "axios";
 import type User from "@/models/User";
+import { Env } from "@/Env";
 
 export default class EventService {
 
-  private baseEventUrl = '/rest/events'
+  private baseEventUrl = Env.brettbutlerPathPrefix + '/rest/events'
 
   getAllEvents(): Promise<Event[]> {
     return axios.get(this.baseEventUrl)

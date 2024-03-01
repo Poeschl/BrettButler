@@ -6,7 +6,7 @@
     <div class="container">
       <div class="navbar-brand">
         <a
-          href="/"
+          :href="Env.brettbutlerPathPrefix + '/'"
           class="navbar-item"
         >
           <FontAwesomeIcon
@@ -56,9 +56,10 @@
 </template>
 
 <script setup lang="ts">
-import {FontAwesomeIcon} from "@fortawesome/vue-fontawesome";
-import {ref} from "vue";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { ref } from "vue";
 import UserDisplay from "./UserDisplay.vue";
+import { Env } from "@/Env";
 
 const mobileNavOpen = ref<boolean>(false)
 const toggleMobileNav = () => {

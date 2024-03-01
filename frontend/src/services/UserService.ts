@@ -1,9 +1,10 @@
 import axios from "axios";
 import type User from "@/models/User";
+import { Env } from "@/Env";
 
 export default class UserService {
 
-  private baseEventUrl = '/rest/users'
+  private baseEventUrl = Env.brettbutlerPathPrefix + '/rest/users'
 
   getUser = (username: string): Promise<User> => {
     return axios.get(`${this.baseEventUrl}?username=${username}`)

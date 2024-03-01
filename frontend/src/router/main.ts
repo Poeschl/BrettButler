@@ -1,10 +1,11 @@
-import {createRouter, createWebHashHistory} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
+import { Env } from "@/Env";
 
 const GamesView = () => import("@/views/GamesView.vue");
 const EventsView = () => import("@/views/EventsView.vue");
 
 export default createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(Env.brettbutlerPathPrefix),
   routes: [
     {
       path: '/',

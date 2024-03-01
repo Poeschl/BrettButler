@@ -9,12 +9,13 @@
 
 <script setup lang="ts">
 import NavBar from './components/NavBar.vue'
-import {provide} from "vue";
+import { provide } from "vue";
 import GameService from "./services/GameService";
 import EventService from "./services/EventService";
+import { Env } from "@/Env";
 
 provide<GameService>('gameService', new GameService())
 provide<EventService>('eventService', new EventService())
 
-console.info(`Swagger UI: ${window.location.origin}/rest/swagger-ui`)
+console.info(`Swagger UI: ${window.location.origin}${Env.brettbutlerPathPrefix}/rest/swagger-ui`)
 </script>
