@@ -22,7 +22,7 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedState)
 app.use(pinia)
 
-if (Env.plausibleDomain !== undefined) {
+if (Env.plausibleDomain !== undefined && Env.plausibleDomain.length > 0) {
   const plausible = Plausible({
     domain: Env.plausibleDomain,
     apiHost: Env.plausibleCustomApiHost,
